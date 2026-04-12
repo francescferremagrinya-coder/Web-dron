@@ -57,18 +57,31 @@
 
   <!-- Loader -->
   <div class="loader" id="loader" aria-hidden="true">
-    <svg class="loader__drone" viewBox="0 0 56 40" fill="none">
-      <rect x="18" y="12" width="20" height="16" rx="4" stroke="currentColor" stroke-width="1.5"/>
-      <circle cx="28" cy="22" r="4" stroke="currentColor" stroke-width="1.5"/>
-      <circle cx="28" cy="22" r="1.5" fill="currentColor"/>
-      <line x1="18" y1="15" x2="4"  y2="6"  stroke="currentColor" stroke-width="1.2"/>
-      <line x1="38" y1="15" x2="52" y2="6"  stroke="currentColor" stroke-width="1.2"/>
-      <line x1="18" y1="25" x2="4"  y2="34" stroke="currentColor" stroke-width="1.2"/>
-      <line x1="38" y1="25" x2="52" y2="34" stroke="currentColor" stroke-width="1.2"/>
-      <ellipse cx="4"  cy="6"  rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
-      <ellipse cx="52" cy="6"  rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
-      <ellipse cx="4"  cy="34" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
-      <ellipse cx="52" cy="34" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+    <svg class="loader__drone" viewBox="0 0 80 60" fill="none">
+      <!-- Arms -->
+      <line x1="26" y1="22" x2="8"  y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="54" y1="22" x2="72" y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="26" y1="38" x2="8"  y2="50" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="54" y1="38" x2="72" y2="50" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- Propellers -->
+      <ellipse cx="8"  cy="10" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
+      <ellipse cx="72" cy="10" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
+      <ellipse cx="8"  cy="50" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
+      <ellipse cx="72" cy="50" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
+      <!-- Motor hubs -->
+      <circle cx="8"  cy="10" r="2" fill="currentColor"/>
+      <circle cx="72" cy="10" r="2" fill="currentColor"/>
+      <circle cx="8"  cy="50" r="2" fill="currentColor"/>
+      <circle cx="72" cy="50" r="2" fill="currentColor"/>
+      <!-- Body -->
+      <rect x="22" y="18" width="36" height="24" rx="7" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Camera -->
+      <rect x="31" y="42" width="18" height="12" rx="4" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="40" cy="48" r="4" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="40" cy="48" r="1.5" fill="currentColor"/>
+      <!-- LEDs -->
+      <circle cx="30" cy="26" r="1.5" fill="currentColor" opacity=".7"/>
+      <circle cx="50" cy="26" r="1.5" fill="currentColor" opacity=".7"/>
     </svg>
     <p class="loader__name">FRANCESC FERRÉ</p>
     <div class="loader__track"><div class="loader__fill" id="loader-fill"></div></div>
@@ -78,18 +91,23 @@
   <header class="header" id="header">
     <nav class="nav container">
       <a href="#inici" class="nav__logo" aria-label="Inici">
-        <svg viewBox="0 0 56 40" fill="none" aria-hidden="true">
-          <rect x="18" y="12" width="20" height="16" rx="4" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="28" cy="22" r="3.5" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="28" cy="22" r="1.5" fill="currentColor"/>
-          <line x1="18" y1="15" x2="4"  y2="6"  stroke="currentColor" stroke-width="1.2"/>
-          <line x1="38" y1="15" x2="52" y2="6"  stroke="currentColor" stroke-width="1.2"/>
-          <line x1="18" y1="25" x2="4"  y2="34" stroke="currentColor" stroke-width="1.2"/>
-          <line x1="38" y1="25" x2="52" y2="34" stroke="currentColor" stroke-width="1.2"/>
-          <ellipse cx="4"  cy="6"  rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
-          <ellipse cx="52" cy="6"  rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
-          <ellipse cx="4"  cy="34" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
-          <ellipse cx="52" cy="34" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+        <svg viewBox="0 0 80 60" fill="none" aria-hidden="true">
+          <line x1="26" y1="22" x2="8"  y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <line x1="54" y1="22" x2="72" y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <line x1="26" y1="38" x2="8"  y2="50" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <line x1="54" y1="38" x2="72" y2="50" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <ellipse cx="8"  cy="10" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
+          <ellipse cx="72" cy="10" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
+          <ellipse cx="8"  cy="50" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
+          <ellipse cx="72" cy="50" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
+          <circle cx="8"  cy="10" r="2" fill="currentColor"/>
+          <circle cx="72" cy="10" r="2" fill="currentColor"/>
+          <circle cx="8"  cy="50" r="2" fill="currentColor"/>
+          <circle cx="72" cy="50" r="2" fill="currentColor"/>
+          <rect x="22" y="18" width="36" height="24" rx="7" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="31" y="42" width="18" height="12" rx="4" stroke="currentColor" stroke-width="1.2"/>
+          <circle cx="40" cy="48" r="4" stroke="currentColor" stroke-width="1.2"/>
+          <circle cx="40" cy="48" r="1.5" fill="currentColor"/>
         </svg>
         <span>FRANCESC<strong>FERRÉ</strong></span>
       </a>
@@ -357,6 +375,96 @@
       </div>
     </section>
 
+    <!-- DRONE SHOWCASE (DJI-style dark) -->
+    <section class="drone-showcase" aria-label="Especificacions tècniques">
+      <div class="drone-showcase__bg" aria-hidden="true"></div>
+      <div class="drone-showcase__grid-lines" aria-hidden="true"></div>
+
+      <div class="container drone-showcase__inner">
+
+        <div class="drone-showcase__left" data-animate>
+          <p class="drone-showcase__eyebrow">Tecnologia d'avantguarda</p>
+          <h2 class="drone-showcase__title">PRECISIÓ<br><span>ABSOLUTA</span></h2>
+          <p class="drone-showcase__desc">Equip professional de darrera generació. Sensors d'alta sensibilitat, estabilitzador de 3 eixos i gravació en RAW per a resultats impecables en qualsevol condició de llum.</p>
+          <ul class="drone-specs" aria-label="Especificacions">
+            <li class="drone-spec" data-animate>
+              <span class="drone-spec__val">6K</span>
+              <span class="drone-spec__lbl">Resolució màxima</span>
+            </li>
+            <li class="drone-spec" data-animate>
+              <span class="drone-spec__val">48MP</span>
+              <span class="drone-spec__lbl">Sensor fotografia</span>
+            </li>
+            <li class="drone-spec" data-animate>
+              <span class="drone-spec__val">46'</span>
+              <span class="drone-spec__lbl">Autonomia de vol</span>
+            </li>
+            <li class="drone-spec" data-animate>
+              <span class="drone-spec__val">20km</span>
+              <span class="drone-spec__lbl">Abast de transmissió</span>
+            </li>
+          </ul>
+          <a href="#contacte" class="btn btn--gold" style="margin-top:2rem">Sol·licita pressupost</a>
+        </div>
+
+        <div class="drone-showcase__right" data-animate>
+          <div class="drone-showcase__scene" aria-hidden="true">
+            <!-- Drone SVG flotant amb glow DJI-style -->
+            <svg class="drone-3d" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Glow aura -->
+              <ellipse cx="200" cy="240" rx="120" ry="18" fill="url(#glowEllipse)" opacity="0.6"/>
+              <!-- Propeller blur rings -->
+              <ellipse cx="72" cy="72"  rx="52" ry="14" stroke="#e8a020" stroke-width="0.6" opacity="0.35"/>
+              <ellipse cx="328" cy="72"  rx="52" ry="14" stroke="#e8a020" stroke-width="0.6" opacity="0.35"/>
+              <ellipse cx="72" cy="208" rx="52" ry="14" stroke="#e8a020" stroke-width="0.6" opacity="0.35"/>
+              <ellipse cx="328" cy="208" rx="52" ry="14" stroke="#e8a020" stroke-width="0.6" opacity="0.35"/>
+              <!-- Arms -->
+              <line x1="148" y1="118" x2="72"  y2="72"  stroke="#c8c8e8" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="252" y1="118" x2="328" y2="72"  stroke="#c8c8e8" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="148" y1="162" x2="72"  y2="208" stroke="#c8c8e8" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="252" y1="162" x2="328" y2="208" stroke="#c8c8e8" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Body -->
+              <rect x="140" y="108" width="120" height="64" rx="16" fill="#1a1a2e" stroke="#e8a020" stroke-width="1.2"/>
+              <rect x="148" y="116" width="104" height="48" rx="12" fill="#0d0d1a"/>
+              <!-- Camera gimbal -->
+              <rect x="178" y="172" width="44" height="30" rx="8" fill="#111120" stroke="#e8a020" stroke-width="0.8"/>
+              <circle cx="200" cy="188" r="12" fill="#0a0a18" stroke="#e8a020" stroke-width="0.8"/>
+              <circle cx="200" cy="188" r="7" fill="#050508"/>
+              <circle cx="200" cy="188" r="3" fill="#e8a020" opacity="0.8"/>
+              <!-- LED indicators -->
+              <circle cx="160" cy="130" r="3" fill="#e8a020" opacity="0.9"/>
+              <circle cx="240" cy="130" r="3" fill="#e8a020" opacity="0.9"/>
+              <circle cx="160" cy="148" r="2" fill="#4080ff" opacity="0.7"/>
+              <circle cx="240" cy="148" r="2" fill="#4080ff" opacity="0.7"/>
+              <!-- Propeller blades (static, subtle) -->
+              <ellipse cx="72"  cy="72"  rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(-20 72 72)"/>
+              <ellipse cx="72"  cy="72"  rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(70 72 72)"/>
+              <ellipse cx="328" cy="72"  rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(20 328 72)"/>
+              <ellipse cx="328" cy="72"  rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(-70 328 72)"/>
+              <ellipse cx="72"  cy="208" rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(20 72 208)"/>
+              <ellipse cx="72"  cy="208" rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(-70 72 208)"/>
+              <ellipse cx="328" cy="208" rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(-20 328 208)"/>
+              <ellipse cx="328" cy="208" rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(70 328 208)"/>
+              <!-- Motor hubs -->
+              <circle cx="72"  cy="72"  r="8" fill="#1a1a2e" stroke="#e8a020" stroke-width="1"/>
+              <circle cx="328" cy="72"  r="8" fill="#1a1a2e" stroke="#e8a020" stroke-width="1"/>
+              <circle cx="72"  cy="208" r="8" fill="#1a1a2e" stroke="#e8a020" stroke-width="1"/>
+              <circle cx="328" cy="208" r="8" fill="#1a1a2e" stroke="#e8a020" stroke-width="1"/>
+              <defs>
+                <radialGradient id="glowEllipse" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#e8a020" stop-opacity="0.5"/>
+                  <stop offset="100%" stop-color="#e8a020" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+            </svg>
+            <!-- Scanning line effect -->
+            <div class="drone-showcase__scan" aria-hidden="true"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- SOBRE MI -->
     <section id="sobre" class="sobre section">
       <div class="container">
@@ -364,20 +472,7 @@
 
           <div class="sobre__visual" data-animate>
             <div class="sobre__img-wrap">
-              <!-- Afegeix la teva foto: substitueix el div.sobre__placeholder per <img src="assets/foto-perfil.jpg" alt="Francesc Ferré Magrinya"> -->
-              <div class="sobre__placeholder">
-                <svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
-                  <rect x="47" y="27" width="26" height="22" rx="5"/>
-                  <circle cx="60" cy="44" r="5"/><circle cx="60" cy="44" r="2" fill="currentColor"/>
-                  <line x1="47" y1="31" x2="22" y2="15"/><line x1="73" y1="31" x2="98" y2="15"/>
-                  <line x1="47" y1="44" x2="22" y2="60"/><line x1="73" y1="44" x2="98" y2="60"/>
-                  <ellipse cx="22" cy="15" rx="13" ry="4.5"/><ellipse cx="98" cy="15" rx="13" ry="4.5"/>
-                  <ellipse cx="22" cy="60" rx="13" ry="4.5"/><ellipse cx="98" cy="60" rx="13" ry="4.5"/>
-                  <circle cx="22" cy="15" r="1.5" fill="currentColor"/><circle cx="98" cy="15" r="1.5" fill="currentColor"/>
-                  <circle cx="22" cy="60" r="1.5" fill="currentColor"/><circle cx="98" cy="60" r="1.5" fill="currentColor"/>
-                </svg>
-                <span>Afegeix la teva foto</span>
-              </div>
+              <img src="assets/foto-perfil.jpg" alt="Francesc Ferré Magrinya, pilot de drons a Tarragona" class="sobre__photo">
               <div class="sobre__badge">
                 <span>✓</span>
                 <div><strong>Pilot Certificat</strong><small>AESA · A1/A2/A3</small></div>
@@ -542,18 +637,23 @@
       <div class="footer__grid">
         <div class="footer__brand">
           <a href="#inici" class="nav__logo" aria-label="Inici">
-            <svg viewBox="0 0 56 40" fill="none" aria-hidden="true">
-              <rect x="18" y="12" width="20" height="16" rx="4" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="28" cy="22" r="3.5" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="28" cy="22" r="1.5" fill="currentColor"/>
-              <line x1="18" y1="15" x2="4"  y2="6"  stroke="currentColor" stroke-width="1.2"/>
-              <line x1="38" y1="15" x2="52" y2="6"  stroke="currentColor" stroke-width="1.2"/>
-              <line x1="18" y1="25" x2="4"  y2="34" stroke="currentColor" stroke-width="1.2"/>
-              <line x1="38" y1="25" x2="52" y2="34" stroke="currentColor" stroke-width="1.2"/>
-              <ellipse cx="4"  cy="6"  rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
-              <ellipse cx="52" cy="6"  rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
-              <ellipse cx="4"  cy="34" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
-              <ellipse cx="52" cy="34" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+            <svg viewBox="0 0 80 60" fill="none" aria-hidden="true">
+              <line x1="26" y1="22" x2="8"  y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <line x1="54" y1="22" x2="72" y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <line x1="26" y1="38" x2="8"  y2="50" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <line x1="54" y1="38" x2="72" y2="50" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <ellipse cx="8"  cy="10" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
+              <ellipse cx="72" cy="10" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
+              <ellipse cx="8"  cy="50" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
+              <ellipse cx="72" cy="50" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="8"  cy="10" r="2" fill="currentColor"/>
+              <circle cx="72" cy="10" r="2" fill="currentColor"/>
+              <circle cx="8"  cy="50" r="2" fill="currentColor"/>
+              <circle cx="72" cy="50" r="2" fill="currentColor"/>
+              <rect x="22" y="18" width="36" height="24" rx="7" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="31" y="42" width="18" height="12" rx="4" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="40" cy="48" r="4" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="40" cy="48" r="1.5" fill="currentColor"/>
             </svg>
             <span>FRANCESC<strong>FERRÉ</strong></span>
           </a>

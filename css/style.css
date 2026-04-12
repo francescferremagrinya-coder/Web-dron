@@ -160,7 +160,7 @@ address { font-style: normal; }
 .loader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
 
 .loader__drone {
-  width: 56px;
+  width: 72px;
   color: var(--gold);
   animation: droneBob 1.2s ease-in-out infinite alternate;
 }
@@ -217,7 +217,7 @@ address { font-style: normal; }
   font-size: 0.82rem;
   letter-spacing: 0.1em;
 }
-.nav__logo svg { width: 32px; height: 23px; color: var(--gold); flex-shrink: 0; }
+.nav__logo svg { width: 36px; height: 27px; color: var(--gold); flex-shrink: 0; }
 .nav__logo strong { color: var(--gold); }
 
 .nav__menu { display: flex; align-items: center; gap: 34px; }
@@ -638,22 +638,15 @@ address { font-style: normal; }
 }
 
 .sobre__img-wrap { position: relative; }
-.sobre__placeholder {
-  aspect-ratio: 3/4; max-height: 520px;
-  background: var(--card);
-  border: 2px dashed var(--grey-d);
+.sobre__photo {
+  width: 100%;
+  aspect-ratio: 3/4;
+  max-height: 520px;
+  object-fit: cover;
   border-radius: var(--r);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 20px;
+  display: block;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
 }
-.sobre__placeholder svg { width: 65%; color: var(--grey-d); }
-.sobre__placeholder span {
-  font-family: var(--fh); font-size: 0.7rem; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-d);
-}
-/* Quan afegeixis la foto real: */
-.sobre__placeholder img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: var(--r); }
 
 .sobre__badge {
   position: absolute;
@@ -685,6 +678,128 @@ address { font-style: normal; }
   transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .skills-animated .skill__fill { width: var(--w); }
+
+/* =====================================================
+   DRONE SHOWCASE (DJI-style)
+===================================================== */
+.drone-showcase {
+  position: relative;
+  background: #000;
+  padding: clamp(80px, 11vw, 140px) 0;
+  overflow: hidden;
+}
+.drone-showcase__bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 50%, rgba(232,160,32,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 80% at 20% 50%, rgba(64,128,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.drone-showcase__grid-lines {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(232,160,32,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,160,32,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+}
+.drone-showcase__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+.drone-showcase__eyebrow {
+  font-family: var(--fh);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+.drone-showcase__title {
+  font-family: var(--fh);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.drone-showcase__title span {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--gold);
+}
+.drone-showcase__desc {
+  font-size: 1rem;
+  color: rgba(240,240,248,0.55);
+  line-height: 1.75;
+  max-width: 440px;
+  margin-bottom: 36px;
+}
+.drone-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  border: 1px solid rgba(232,160,32,0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(232,160,32,0.15);
+}
+.drone-spec {
+  background: rgba(0,0,0,0.85);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.drone-spec__val {
+  font-family: var(--fh);
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: var(--gold);
+  letter-spacing: -0.02em;
+}
+.drone-spec__lbl {
+  font-family: var(--fh);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(240,240,248,0.4);
+}
+.drone-showcase__scene {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.drone-3d {
+  width: 100%;
+  max-width: 440px;
+  animation: droneFloat 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 40px rgba(232,160,32,0.22)) drop-shadow(0 0 80px rgba(232,160,32,0.08));
+}
+@keyframes droneFloat {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-14px); }
+}
+.drone-showcase__scan {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 0%, rgba(232,160,32,0.04) 50%, transparent 100%);
+  background-size: 100% 40px;
+  animation: scanLine 3s linear infinite;
+  pointer-events: none;
+}
+@keyframes scanLine {
+  0%   { background-position: 0 -40px; }
+  100% { background-position: 0 100%; }
+}
 
 /* =====================================================
    STATS
@@ -873,6 +988,11 @@ address { font-style: normal; }
   .portfolio-item { height: 260px; grid-row: auto !important; grid-column: auto !important; }
 
   .serveis__grid { grid-template-columns: 1fr; }
+
+  .drone-showcase__inner { grid-template-columns: 1fr; }
+  .drone-showcase__right { order: -1; }
+  .drone-3d { max-width: 300px; margin: 0 auto; }
+  .drone-showcase__title { font-size: clamp(2.4rem, 12vw, 3.5rem); }
 
   .sobre__inner { grid-template-columns: 1fr; }
   .sobre__img-wrap { max-width: 300px; margin: 0 auto; }
