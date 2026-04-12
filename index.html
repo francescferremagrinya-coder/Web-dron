@@ -134,6 +134,13 @@
       <div class="hero__bg" style="background-image:url('assets/nuvolada.jpg')" aria-hidden="true"></div>
       <div class="hero__overlay" aria-hidden="true"></div>
 
+      <!-- Coordenades GPS decoratives -->
+      <div class="hero__coords" aria-hidden="true">
+        <span>41°20'52"N</span>
+        <span>1°17'16"E</span>
+        <span class="hero__coords-blink"></span>
+      </div>
+
       <div class="hero__content container">
         <div class="hero__eyebrow" data-hero-el>
           <span class="hero__dot"></span>
@@ -141,13 +148,15 @@
         </div>
         <h1 class="hero__title">
           <span class="hero__line" data-hero-el style="--d:.1s">FRANCESC</span>
-          <span class="hero__line hero__line--outline" data-hero-el style="--d:.25s">FERRÉ</span>
-          <span class="hero__sub" data-hero-el style="--d:.45s">Dron Pilot &amp; Cinematographer</span>
+          <span class="hero__line hero__line--gold" data-hero-el style="--d:.22s">FERRÉ</span>
+          <span class="hero__profession" data-hero-el style="--d:.38s">
+            <span>Dron Pilot</span><i aria-hidden="true">·</i><span>Cinematographer</span><i aria-hidden="true">·</i><span>Catalunya</span>
+          </span>
         </h1>
-        <p class="hero__desc" data-hero-el style="--d:.6s">
+        <p class="hero__desc" data-hero-el style="--d:.55s">
           Capturo Catalunya des de perspectives impossibles. Cinematografia i fotografia aèria professional que narra la teva història des de l'aire.
         </p>
-        <div class="hero__cta" data-hero-el style="--d:.75s">
+        <div class="hero__cta" data-hero-el style="--d:.70s">
           <a href="#showreel" class="btn btn--gold">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             Veure Showreel
@@ -190,11 +199,10 @@
         </header>
         <div class="showreel__frame" data-animate>
           <iframe
-            src="https://www.youtube.com/embed/hu8MrCl1UP0?rel=0&modestbranding=1&color=white"
+            src="https://www.youtube.com/embed/hu8MrCl1UP0?rel=0&modestbranding=1&color=white&playsinline=1"
             title="Showreel Francesc Ferré Dron Pilot"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            loading="lazy">
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            allowfullscreen>
           </iframe>
         </div>
       </div>
@@ -472,7 +480,7 @@
 
           <div class="sobre__visual" data-animate>
             <div class="sobre__img-wrap">
-              <img src="assets/foto-perfil.jpg" alt="Francesc Ferré Magrinya, pilot de drons a Tarragona" class="sobre__photo" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <img src="assets/foto-perfil.JPG" alt="Francesc Ferré Magrinya, pilot de drons a Tarragona" class="sobre__photo" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex'">
               <div class="sobre__photo-placeholder" aria-hidden="true">
                 <svg viewBox="0 0 80 60" fill="none">
                   <line x1="26" y1="22" x2="8"  y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>

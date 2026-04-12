@@ -332,27 +332,65 @@ address { font-style: normal; }
   50%      { box-shadow: 0 0 0 8px rgba(232,160,32,0.05); }
 }
 
-.hero__title { display: flex; flex-direction: column; line-height: 0.88; margin-bottom: 28px; }
+.hero__coords {
+  position: absolute;
+  top: calc(var(--nav-h) + 20px);
+  right: clamp(18px, 4vw, 52px);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  font-family: var(--fh);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(240,240,248,0.28);
+}
+.hero__coords-blink {
+  width: 5px; height: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin-top: 4px;
+  align-self: flex-end;
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+.hero__title { display: flex; flex-direction: column; line-height: 0.9; margin-bottom: 28px; }
 
 .hero__line {
   font-family: var(--fh);
-  font-size: clamp(4.5rem, 13vw, 10.5rem);
+  font-size: clamp(4.8rem, 14vw, 11.5rem);
   font-weight: 900;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   color: var(--white);
 }
-.hero__line--outline {
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(240,240,248,0.25);
-}
-.hero__sub {
-  font-family: var(--fh);
-  font-size: clamp(0.9rem, 2.2vw, 1.55rem);
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+.hero__line--gold {
   color: var(--gold);
-  margin-top: 14px;
+  text-shadow:
+    0 0 60px rgba(232,160,32,0.55),
+    0 0 120px rgba(232,160,32,0.25);
+}
+.hero__profession {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  font-family: var(--fh);
+  font-size: clamp(0.65rem, 1.4vw, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(240,240,248,0.45);
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(232,160,32,0.2);
+}
+.hero__profession i {
+  color: var(--gold);
+  font-style: normal;
+  font-size: 1.3em;
+  line-height: 1;
 }
 .hero__desc {
   font-size: clamp(1rem, 1.8vw, 1.15rem);
