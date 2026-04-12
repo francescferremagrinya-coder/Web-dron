@@ -1,110 +1,141 @@
 'use strict';
 
-// ============================================================
-// NAVEGACIÓ
-// ============================================================
-const header    = document.getElementById('header');
-const navBurger = document.getElementById('nav-burger');
-const navMenu   = document.getElementById('nav-menu');
-const navLinks  = document.querySelectorAll('.nav__link:not(.nav__link--cta)');
+// ─── LOADER ────────────────────────────────────────────────
+const loader = document.getElementById('loader');
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    loader.classList.add('is-done');
+    document.querySelector('.hero').classList.add('is-loaded');
+    document.body.classList.add('is-loaded');
+  }, 1600);
+});
+
+// ─── SCROLL PROGRESS BAR ──────────────────────────────────
+const scrollBar = document.getElementById('scroll-bar');
 const backTop   = document.getElementById('back-top');
+const header    = document.getElementById('header');
 
 function onScroll() {
-  header.classList.toggle('scrolled', window.scrollY > 40);
+  const max      = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = max > 0 ? (window.scrollY / max) * 100 : 0;
+  scrollBar.style.width = progress + '%';
+
+  header.classList.toggle('scrolled',   window.scrollY > 50);
   backTop.classList.toggle('is-visible', window.scrollY > 400);
+
   setActiveNav();
 }
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
+// ─── NAVEGACIÓ ACTIVA ──────────────────────────────────────
+const navLinks = document.querySelectorAll('.nav__link:not(.nav__link--cta)');
+
 function setActiveNav() {
-  const sections = document.querySelectorAll('section[id]');
   const y = window.scrollY + window.innerHeight / 3;
-  let activeId = null;
-  sections.forEach(sec => { if (sec.offsetTop <= y) activeId = sec.id; });
-  navLinks.forEach(link => {
-    const href = link.getAttribute('href')?.replace('#', '');
-    link.classList.toggle('is-active', href === activeId);
+  let active = null;
+  document.querySelectorAll('section[id]').forEach(sec => {
+    if (sec.offsetTop <= y) active = sec.id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('is-active', l.getAttribute('href') === '#' + active);
   });
 }
 
-// Menú hamburguesa
+// ─── MENÚ MÒBIL ────────────────────────────────────────────
+const navBurger = document.getElementById('nav-burger');
+const navMenu   = document.getElementById('nav-menu');
+
 navBurger.addEventListener('click', () => {
-  const isOpen = navMenu.classList.toggle('is-open');
-  navBurger.classList.toggle('is-open', isOpen);
-  navBurger.setAttribute('aria-expanded', String(isOpen));
-  document.body.style.overflow = isOpen ? 'hidden' : '';
+  const open = navMenu.classList.toggle('is-open');
+  navBurger.classList.toggle('is-open', open);
+  navBurger.setAttribute('aria-expanded', String(open));
+  document.body.style.overflow = open ? 'hidden' : '';
 });
 
-navMenu.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    navMenu.classList.remove('is-open');
-    navBurger.classList.remove('is-open');
-    navBurger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
+navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+function closeMenu() {
+  navMenu.classList.remove('is-open');
+  navBurger.classList.remove('is-open');
+  navBurger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+// ─── CURSOR PERSONALITZAT ─────────────────────────────────
+const ring = document.getElementById('cursor-ring');
+const dot  = document.getElementById('cursor-dot');
+let   mx = -999, my = -999, rx = -999, ry = -999;
+
+if (window.matchMedia('(hover: hover)').matches) {
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left  = mx + 'px';
+    dot.style.top   = my + 'px';
+    dot.classList.add('is-visible');
+    ring.classList.add('is-visible');
   });
-});
 
-// Tancar menú amb Escape
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && navMenu.classList.contains('is-open')) {
-    navMenu.classList.remove('is-open');
-    navBurger.classList.remove('is-open');
-    navBurger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-});
+  // Anell segueix amb inèrcia suau
+  (function animateCursor() {
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  })();
 
-// ============================================================
-// BOTÓ TORNAR A DALT
-// ============================================================
-backTop.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+  document.addEventListener('mousedown', () => ring.classList.add('is-click'));
+  document.addEventListener('mouseup',   () => ring.classList.remove('is-click'));
 
-// ============================================================
-// ANIMACIONS EN SCROLL (IntersectionObserver)
-// ============================================================
-const animObserver = new IntersectionObserver((entries) => {
+  document.querySelectorAll('a, button, .portfolio-item, .filter-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('is-hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('is-hover'));
+  });
+}
+
+// ─── BACK TO TOP ──────────────────────────────────────────
+backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// ─── ANIMACIONS EN SCROLL ─────────────────────────────────
+const animObs = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
     const siblings = Array.from(entry.target.parentElement.children)
       .filter(el => el.hasAttribute('data-animate'));
     const idx = siblings.indexOf(entry.target);
-    entry.target.style.transitionDelay = `${idx * 70}ms`;
+    entry.target.style.transitionDelay = (idx * 80) + 'ms';
     entry.target.classList.add('is-visible');
-    animObserver.unobserve(entry.target);
+    animObs.unobserve(entry.target);
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
-document.querySelectorAll('[data-animate]').forEach(el => animObserver.observe(el));
+document.querySelectorAll('[data-animate]').forEach(el => animObs.observe(el));
 
-// ============================================================
-// BARRES D'HABILITATS
-// ============================================================
+// ─── BARRES D'HABILITATS ──────────────────────────────────
 const skillsEl = document.querySelector('.sobre__skills');
 if (skillsEl) {
-  new IntersectionObserver(([entry], obs) => {
-    if (!entry.isIntersecting) return;
+  new IntersectionObserver(([e], obs) => {
+    if (!e.isIntersecting) return;
     skillsEl.classList.add('skills-animated');
     obs.disconnect();
   }, { threshold: 0.4 }).observe(skillsEl);
 }
 
-// ============================================================
-// COMPTADORS ANIMATS
-// ============================================================
+// ─── COMPTADORS ANIMATS ────────────────────────────────────
 const statsEl = document.querySelector('.stats');
 if (statsEl) {
-  new IntersectionObserver(([entry], obs) => {
-    if (!entry.isIntersecting) return;
-    document.querySelectorAll('.stat__num[data-count]').forEach(el => {
+  new IntersectionObserver(([e], obs) => {
+    if (!e.isIntersecting) return;
+    document.querySelectorAll('.stat__n[data-count]').forEach(el => {
       const target = +el.dataset.count;
-      const dur    = 1600;
       const start  = performance.now();
+      const dur    = 1800;
       const tick   = now => {
-        const p      = Math.min((now - start) / dur, 1);
-        const eased  = 1 - Math.pow(1 - p, 3);
+        const p     = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
         el.textContent = Math.floor(eased * target);
         if (p < 1) requestAnimationFrame(tick);
         else el.textContent = target;
@@ -115,41 +146,61 @@ if (statsEl) {
   }, { threshold: 0.5 }).observe(statsEl);
 }
 
-// ============================================================
-// FILTRE PORTFOLIO
-// ============================================================
+// ─── FILTRE PORTFOLIO ──────────────────────────────────────
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('is-active'));
     btn.classList.add('is-active');
-    const filter = btn.dataset.filter;
+    const f = btn.dataset.filter;
     document.querySelectorAll('.portfolio-item').forEach(item => {
-      const match = filter === 'all' || item.dataset.category === filter;
-      item.style.opacity = match ? '1' : '0.12';
-      item.style.pointerEvents = match ? '' : 'none';
-      item.style.transition = 'opacity 0.35s ease';
+      const show = f === 'all' || item.dataset.category === f;
+      item.style.opacity        = show ? '1' : '0.12';
+      item.style.pointerEvents  = show ? '' : 'none';
+      item.style.transition     = 'opacity .35s ease';
     });
   });
 });
 
-// ============================================================
-// FORMULARI DE CONTACTE
-// ============================================================
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-  contactForm.addEventListener('submit', async e => {
-    e.preventDefault();
+// ─── LIGHTBOX ──────────────────────────────────────────────
+const lightbox    = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxClose = document.getElementById('lightbox-close');
 
-    const btnText = contactForm.querySelector('.btn-text');
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
+document.querySelectorAll('.portfolio-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const img = item.querySelector('img');
+    if (!img) return;
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+function closeLightbox() {
+  lightbox.classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// ─── FORMULARI ────────────────────────────────────────────
+const form = document.getElementById('contact-form');
+if (form) {
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btnText  = form.querySelector('.btn-text');
+    const submitBtn = form.querySelector('[type="submit"]');
     const original = btnText.textContent;
 
     // Validació
     let valid = true;
-    contactForm.querySelectorAll('[required]').forEach(field => {
-      if (!field.value.trim()) {
-        field.style.borderColor = '#e83232';
-        field.style.boxShadow   = '0 0 0 3px rgba(232,50,50,0.12)';
+    form.querySelectorAll('[required]').forEach(field => {
+      const err = !field.value.trim();
+      field.style.borderColor = err ? '#e83232' : '';
+      field.style.boxShadow   = err ? '0 0 0 3px rgba(232,50,50,0.12)' : '';
+      if (err) {
         valid = false;
         field.addEventListener('input', () => {
           field.style.borderColor = '';
@@ -159,21 +210,19 @@ if (contactForm) {
     });
     if (!valid) return;
 
-    btnText.textContent = 'Enviant...';
-    submitBtn.disabled  = true;
+    btnText.textContent  = 'Enviant...';
+    submitBtn.disabled   = true;
 
-    // TODO: Integra el teu backend o servei de formulari aquí
-    // Exemple amb Formspree:
+    // TODO: connecta amb Formspree o el teu backend:
     // const res = await fetch('https://formspree.io/f/XXXXXXXX', {
-    //   method: 'POST', headers: { 'Accept': 'application/json' },
-    //   body: new FormData(contactForm)
+    //   method: 'POST', headers: { Accept: 'application/json' },
+    //   body: new FormData(form)
     // });
-    // if (!res.ok) { btnText.textContent = 'Error. Torna-ho a provar.'; submitBtn.disabled = false; return; }
 
-    await new Promise(r => setTimeout(r, 1200));
+    await new Promise(r => setTimeout(r, 1400));
 
     btnText.textContent = '✓ Missatge enviat!';
-    contactForm.reset();
+    form.reset();
 
     setTimeout(() => {
       btnText.textContent = original;

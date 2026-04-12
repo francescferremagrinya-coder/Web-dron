@@ -3,37 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- SEO Primari -->
-  <title>Francesc Ferré | Cinematografia amb Drons · Tarragona</title>
-  <meta name="description" content="Cinematografia i fotografia aèria professional amb drons a Tarragona i Catalunya. Especialitzat en publicitat, turisme, casaments i immobiliàries. Pilot certificat AESA.">
-  <meta name="keywords" content="dron Tarragona, cinematografia aèria Catalunya, fotografia aèria, vídeo amb dron, pilot dron certificat, Francesc Ferré, El Pla de Santa Maria, aerial drone video">
+  <title>Francesc Ferré | Dron Pilot & Cinematografia Aèria · Tarragona</title>
+  <meta name="description" content="Cinematografia i fotografia aèria professional amb drons a Tarragona i Catalunya. Especialitzat en paisatge, arquitectura, turisme i esdeveniments. Pilot certificat AESA.">
+  <meta name="keywords" content="dron Tarragona, cinematografia aèria Catalunya, fotografia aèria, vídeo dron, pilot dron AESA, Francesc Ferré, El Pla de Santa Maria, aerial drone">
   <meta name="author" content="Francesc Ferré Magrinya">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.francescferremagrinya.com">
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ca_ES">
-  <meta property="og:title" content="Francesc Ferré | Cinematografia amb Drons · Tarragona">
-  <meta property="og:description" content="Cinematografia i fotografia aèria professional amb drons a Tarragona i Catalunya. Pilot certificat AESA.">
+  <meta property="og:title" content="Francesc Ferré | Dron Pilot & Cinematografia Aèria">
+  <meta property="og:description" content="Cinematografia i fotografia aèria professional amb drons a Tarragona i Catalunya.">
   <meta property="og:url" content="https://www.francescferremagrinya.com">
-  <meta property="og:image" content="https://www.francescferremagrinya.com/assets/og-image.jpg">
-  <meta property="og:site_name" content="Francesc Ferré Cinematografia">
+  <meta property="og:image" content="assets/nuvolada.jpg">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Francesc Ferré | Cinematografia amb Drons">
-  <meta name="twitter:description" content="Cinematografia i fotografia aèria professional amb drons a Tarragona i Catalunya.">
-  <meta name="twitter:image" content="https://www.francescferremagrinya.com/assets/og-image.jpg">
+  <meta name="twitter:title" content="Francesc Ferré | Dron Pilot & Cinematografia Aèria">
+  <meta name="twitter:image" content="assets/nuvolada.jpg">
 
-  <!-- Schema.org -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Francesc Ferré – Cinematografia amb Drons",
-    "description": "Cinematografia i fotografia aèria professional amb drons a Tarragona i Catalunya. Especialitzat en publicitat, turisme, events i immobiliàries.",
+    "description": "Cinematografia i fotografia aèria professional amb drons a Tarragona i Catalunya.",
     "email": "francesc.ferre.magrinya@gmail.com",
     "address": {
       "@type": "PostalAddress",
@@ -42,182 +35,321 @@
       "addressRegion": "Tarragona",
       "addressCountry": "ES"
     },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 41.3479,
-      "longitude": 1.2878
-    },
-    "areaServed": [
-      { "@type": "State", "name": "Catalunya" },
-      { "@type": "Country", "name": "España" }
-    ],
-    "priceRange": "€€",
-    "serviceType": [
-      "Cinematografia aèria amb drons",
-      "Fotografia aèria professional",
-      "Vídeos corporatius",
-      "Cobertura d'esdeveniments",
-      "Vídeos de turisme i promoció",
-      "Inspecció visual tècnica"
-    ]
+    "geo": { "@type": "GeoCoordinates", "latitude": 41.3479, "longitude": 1.2878 },
+    "areaServed": [{"@type": "State","name": "Catalunya"}],
+    "priceRange": "€€"
   }
   </script>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- ==============================
-       NAVEGACIÓ
-  ============================== -->
+  <!-- Barra de progrés scroll -->
+  <div class="scroll-bar" id="scroll-bar" aria-hidden="true"></div>
+
+  <!-- Cursor personalitzat (desktop) -->
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+  <div class="cursor-dot"  id="cursor-dot"  aria-hidden="true"></div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <svg class="loader__drone" viewBox="0 0 56 40" fill="none">
+      <rect x="18" y="12" width="20" height="16" rx="4" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="28" cy="22" r="4" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="28" cy="22" r="1.5" fill="currentColor"/>
+      <line x1="18" y1="15" x2="4"  y2="6"  stroke="currentColor" stroke-width="1.2"/>
+      <line x1="38" y1="15" x2="52" y2="6"  stroke="currentColor" stroke-width="1.2"/>
+      <line x1="18" y1="25" x2="4"  y2="34" stroke="currentColor" stroke-width="1.2"/>
+      <line x1="38" y1="25" x2="52" y2="34" stroke="currentColor" stroke-width="1.2"/>
+      <ellipse cx="4"  cy="6"  rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+      <ellipse cx="52" cy="6"  rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+      <ellipse cx="4"  cy="34" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+      <ellipse cx="52" cy="34" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    <p class="loader__name">FRANCESC FERRÉ</p>
+    <div class="loader__track"><div class="loader__fill" id="loader-fill"></div></div>
+  </div>
+
+  <!-- Navegació -->
   <header class="header" id="header">
     <nav class="nav container">
-      <a href="#inici" class="nav__logo" aria-label="Francesc Ferré Cinematografia">
-        <svg class="nav__logo-icon" viewBox="0 0 28 20" fill="none" aria-hidden="true">
-          <rect x="9" y="6" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="14" cy="11" r="1.5" fill="currentColor"/>
-          <line x1="9" y1="7.5" x2="2" y2="3" stroke="currentColor" stroke-width="1.2"/>
-          <line x1="19" y1="7.5" x2="26" y2="3" stroke="currentColor" stroke-width="1.2"/>
-          <line x1="9" y1="12.5" x2="2" y2="17" stroke="currentColor" stroke-width="1.2"/>
-          <line x1="19" y1="12.5" x2="26" y2="17" stroke="currentColor" stroke-width="1.2"/>
-          <ellipse cx="2" cy="3" rx="2.5" ry="1" stroke="currentColor" stroke-width="1.2"/>
-          <ellipse cx="26" cy="3" rx="2.5" ry="1" stroke="currentColor" stroke-width="1.2"/>
-          <ellipse cx="2" cy="17" rx="2.5" ry="1" stroke="currentColor" stroke-width="1.2"/>
-          <ellipse cx="26" cy="17" rx="2.5" ry="1" stroke="currentColor" stroke-width="1.2"/>
+      <a href="#inici" class="nav__logo" aria-label="Inici">
+        <svg viewBox="0 0 56 40" fill="none" aria-hidden="true">
+          <rect x="18" y="12" width="20" height="16" rx="4" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="28" cy="22" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="28" cy="22" r="1.5" fill="currentColor"/>
+          <line x1="18" y1="15" x2="4"  y2="6"  stroke="currentColor" stroke-width="1.2"/>
+          <line x1="38" y1="15" x2="52" y2="6"  stroke="currentColor" stroke-width="1.2"/>
+          <line x1="18" y1="25" x2="4"  y2="34" stroke="currentColor" stroke-width="1.2"/>
+          <line x1="38" y1="25" x2="52" y2="34" stroke="currentColor" stroke-width="1.2"/>
+          <ellipse cx="4"  cy="6"  rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+          <ellipse cx="52" cy="6"  rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+          <ellipse cx="4"  cy="34" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+          <ellipse cx="52" cy="34" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
         </svg>
         <span>FRANCESC<strong>FERRÉ</strong></span>
       </a>
 
-      <ul class="nav__menu" id="nav-menu" role="navigation" aria-label="Menú principal">
-        <li><a href="#inici" class="nav__link">Inici</a></li>
-        <li><a href="#serveis" class="nav__link">Serveis</a></li>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="#inici"     class="nav__link">Inici</a></li>
+        <li><a href="#showreel"  class="nav__link">Showreel</a></li>
         <li><a href="#portfolio" class="nav__link">Portfolio</a></li>
-        <li><a href="#sobre" class="nav__link">Sobre mi</a></li>
-        <li><a href="#contacte" class="nav__link nav__link--cta">Contacta</a></li>
+        <li><a href="#serveis"   class="nav__link">Serveis</a></li>
+        <li><a href="#sobre"     class="nav__link">Sobre mi</a></li>
+        <li><a href="#contacte"  class="nav__link nav__link--cta">Contacta</a></li>
       </ul>
 
-      <button class="nav__burger" id="nav-burger" aria-label="Obrir menú" aria-expanded="false" aria-controls="nav-menu">
-        <span></span>
-        <span></span>
-        <span></span>
+      <button class="nav__burger" id="nav-burger" aria-label="Obrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
       </button>
     </nav>
   </header>
 
   <main>
 
-    <!-- ==============================
-         HERO
-    ============================== -->
-    <section id="inici" class="hero" aria-label="Portada">
+    <!-- HERO -->
+    <section id="inici" class="hero">
+      <div class="hero__bg" style="background-image:url('assets/nuvolada.jpg')" aria-hidden="true"></div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+
       <div class="hero__content container">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          Pilot certificat AESA &middot; El Pla de Santa Maria, Tarragona
+        <div class="hero__eyebrow" data-hero-el>
+          <span class="hero__dot"></span>
+          Pilot certificat AESA &nbsp;·&nbsp; El Pla de Santa Maria, Tarragona
         </div>
         <h1 class="hero__title">
-          <span class="hero__title-main">VISIÓ</span>
-          <span class="hero__title-outline">AÈRIA</span>
-          <span class="hero__title-sub">sense límits</span>
+          <span class="hero__line" data-hero-el style="--d:.1s">FRANCESC</span>
+          <span class="hero__line hero__line--outline" data-hero-el style="--d:.25s">FERRÉ</span>
+          <span class="hero__sub" data-hero-el style="--d:.45s">Dron Pilot &amp; Cinematographer</span>
         </h1>
-        <p class="hero__desc">
-          Cinematografia i fotografia professional amb drons. Capturo el teu món des de perspectives úniques, combinant creativitat i tecnologia d'última generació.
+        <p class="hero__desc" data-hero-el style="--d:.6s">
+          Capturo Catalunya des de perspectives impossibles. Cinematografia i fotografia aèria professional que narra la teva història des de l'aire.
         </p>
-        <div class="hero__cta">
-          <a href="#portfolio" class="btn btn--primary">Veure el Portfolio</a>
-          <a href="#contacte" class="btn btn--outline">Sol·licita Pressupost</a>
+        <div class="hero__cta" data-hero-el style="--d:.75s">
+          <a href="#showreel" class="btn btn--gold">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Veure Showreel
+          </a>
+          <a href="#contacte" class="btn btn--ghost">Sol·licita Pressupost</a>
         </div>
       </div>
-      <div class="hero__indicator" aria-hidden="true">
-        <span>Descobreix</span>
-        <div class="hero__indicator-line"></div>
+
+      <a href="#showreel" class="hero__scroll" aria-label="Baixa">
+        <span>Scroll</span>
+        <div class="hero__scroll-line"></div>
+      </a>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__inner">
+        <span>Cinematografia Aèria</span><span class="marquee__sep">◆</span>
+        <span>Fotografia Professional</span><span class="marquee__sep">◆</span>
+        <span>Pilot Certificat AESA</span><span class="marquee__sep">◆</span>
+        <span>Tarragona · Catalunya</span><span class="marquee__sep">◆</span>
+        <span>4K / 6K Resolution</span><span class="marquee__sep">◆</span>
+        <span>Paisatge · Arquitectura · Esdeveniments</span><span class="marquee__sep">◆</span>
+        <!-- duplicat per loop perfecte -->
+        <span>Cinematografia Aèria</span><span class="marquee__sep">◆</span>
+        <span>Fotografia Professional</span><span class="marquee__sep">◆</span>
+        <span>Pilot Certificat AESA</span><span class="marquee__sep">◆</span>
+        <span>Tarragona · Catalunya</span><span class="marquee__sep">◆</span>
+        <span>4K / 6K Resolution</span><span class="marquee__sep">◆</span>
+        <span>Paisatge · Arquitectura · Esdeveniments</span><span class="marquee__sep">◆</span>
+      </div>
+    </div>
+
+    <!-- SHOWREEL -->
+    <section id="showreel" class="showreel section">
+      <div class="container">
+        <header class="section__header" data-animate>
+          <span class="section__label">Showreel 2025</span>
+          <h2 class="section__title">El meu treball<br>en acció</h2>
+        </header>
+        <div class="showreel__frame" data-animate>
+          <iframe
+            src="https://www.youtube.com/embed/hu8MrCl1UP0?rel=0&modestbranding=1&color=white"
+            title="Showreel Francesc Ferré Dron Pilot"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
       </div>
     </section>
 
-    <!-- ==============================
-         SERVEIS
-    ============================== -->
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="portfolio section">
+      <div class="container">
+        <header class="section__header" data-animate>
+          <span class="section__label">Portfolio</span>
+          <h2 class="section__title">Projectes destacats</h2>
+          <p class="section__desc">Cada imatge és única. Cada vol, una nova perspectiva.</p>
+        </header>
+
+        <div class="portfolio__filters" role="group" aria-label="Filtres">
+          <button class="filter-btn is-active" data-filter="all">Tots</button>
+          <button class="filter-btn" data-filter="paisatge">Paisatge</button>
+          <button class="filter-btn" data-filter="arquitectura">Arquitectura</button>
+          <button class="filter-btn" data-filter="industrial">Industrial</button>
+          <button class="filter-btn" data-filter="natura">Natura</button>
+        </div>
+
+        <div class="portfolio__grid">
+
+          <article class="portfolio-item" data-category="paisatge" data-animate style="grid-row:1/3;grid-column:1">
+            <img src="assets/nuvolada.jpg" alt="Silueta sobre mar de núvols al posta de sol" loading="lazy">
+            <div class="portfolio-item__overlay">
+              <div class="portfolio-item__info">
+                <span class="portfolio-item__cat">Paisatge</span>
+                <h3>Per Sobre dels Núvols</h3>
+              </div>
+              <div class="portfolio-item__zoom">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </div>
+            </div>
+          </article>
+
+          <article class="portfolio-item" data-category="arquitectura" data-animate style="grid-row:1;grid-column:2">
+            <img src="assets/poble-nit.jpg" alt="Vista aèria nocturna de poble medieval amb catedral" loading="lazy">
+            <div class="portfolio-item__overlay">
+              <div class="portfolio-item__info">
+                <span class="portfolio-item__cat">Arquitectura</span>
+                <h3>Poble Medieval de Nit</h3>
+              </div>
+              <div class="portfolio-item__zoom">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </div>
+            </div>
+          </article>
+
+          <article class="portfolio-item" data-category="industrial" data-animate style="grid-row:1;grid-column:3">
+            <img src="assets/eolic.jpg" alt="Molins de vent emergint entre boira" loading="lazy">
+            <div class="portfolio-item__overlay">
+              <div class="portfolio-item__info">
+                <span class="portfolio-item__cat">Industrial</span>
+                <h3>Eòlic</h3>
+              </div>
+              <div class="portfolio-item__zoom">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </div>
+            </div>
+          </article>
+
+          <article class="portfolio-item" data-category="arquitectura" data-animate style="grid-row:2;grid-column:2">
+            <img src="assets/arquitectura.jpg" alt="Vista zenital d'arquitectura orgànica única" loading="lazy">
+            <div class="portfolio-item__overlay">
+              <div class="portfolio-item__info">
+                <span class="portfolio-item__cat">Arquitectura</span>
+                <h3>Arquitectura Orgànica</h3>
+              </div>
+              <div class="portfolio-item__zoom">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </div>
+            </div>
+          </article>
+
+          <article class="portfolio-item" data-category="natura" data-animate style="grid-row:2;grid-column:3">
+            <img src="assets/camp-ombra.jpg" alt="Ombra humana entre fileres d'arbres en flor" loading="lazy">
+            <div class="portfolio-item__overlay">
+              <div class="portfolio-item__info">
+                <span class="portfolio-item__cat">Natura</span>
+                <h3>Terra i Ànima</h3>
+              </div>
+              <div class="portfolio-item__zoom">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="section__cta" data-animate>
+          <a href="#contacte" class="btn btn--gold">Parla'm del teu projecte</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Visualitzador d'imatge">
+      <button class="lightbox__close" id="lightbox-close" aria-label="Tancar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <img class="lightbox__img" id="lightbox-img" src="" alt="">
+    </div>
+
+    <!-- SERVEIS -->
     <section id="serveis" class="serveis section">
       <div class="container">
-        <header class="section__header">
+        <header class="section__header" data-animate>
           <span class="section__label">Serveis</span>
           <h2 class="section__title">Tot el que necessites<br>des de l'aire</h2>
-          <p class="section__desc">Solucions audiovisuals amb drons adaptades a cada projecte, amb equip professional i certificació oficial.</p>
+          <p class="section__desc">Solucions audiovisuals professionals adaptades a cada projecte i client.</p>
         </header>
 
         <div class="serveis__grid">
 
           <article class="service-card" data-animate>
+            <div class="service-card__num" aria-hidden="true">01</div>
             <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M15 10l4.553-2.069A1 1 0 0121 8.868V15.13a1 1 0 01-1.447.899L15 14M3 8h12v8H3a1 1 0 01-1-1V9a1 1 0 011-1z"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.868V15.13a1 1 0 01-1.447.899L15 14M3 8h12v8H3a1 1 0 01-1-1V9a1 1 0 011-1z"/></svg>
             </div>
             <h3>Cinematografia Aèria</h3>
-            <p>Produccions de qualitat cinema per a pel·lícules, sèries, videoclips musicals i campanyes publicitàries d'alt impacte.</p>
+            <p>Produccions de qualitat cinema per a pel·lícules, sèries, videoclips i campanyes publicitàries d'alt impacte.</p>
             <span class="service-card__tag">Cinema · Publicitat · Música</span>
           </article>
 
           <article class="service-card" data-animate>
+            <div class="service-card__num" aria-hidden="true">02</div>
             <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-                <circle cx="12" cy="13" r="3"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
             </div>
             <h3>Fotografia Aèria</h3>
-            <p>Imatges d'alta resolució per a immobiliàries, arquitectura, construcció, turisme i reportatge periodístic.</p>
+            <p>Imatges d'alta resolució per a immobiliàries, arquitectura, turisme i reportatge periodístic professional.</p>
             <span class="service-card__tag">Immobiliàri · Arquitectura · Premsa</span>
           </article>
 
           <article class="service-card" data-animate>
+            <div class="service-card__num" aria-hidden="true">03</div>
             <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="2" y="7" width="20" height="14" rx="2"/>
-                <path d="M16 3l-4 4-4-4"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3l-4 4-4-4"/></svg>
             </div>
             <h3>Vídeos Corporatius</h3>
-            <p>Contingut audiovisual professional per a empreses i marques que volen destacar amb imatges úniques i impactants.</p>
+            <p>Contingut audiovisual que potencia la imatge de la teva empresa amb perspectives úniques que impacten.</p>
             <span class="service-card__tag">Empreses · Marques · Institucions</span>
           </article>
 
           <article class="service-card" data-animate>
+            <div class="service-card__num" aria-hidden="true">04</div>
             <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
             </div>
             <h3>Cobertura d'Esdeveniments</h3>
-            <p>Captures úniques de casaments, concerts, festivals i esdeveniments esportius des de perspectives impossibles.</p>
+            <p>Casaments, concerts, festivals i esports capturats des de perspectives impossibles des de terra.</p>
             <span class="service-card__tag">Casaments · Concerts · Esports</span>
           </article>
 
           <article class="service-card" data-animate>
+            <div class="service-card__num" aria-hidden="true">05</div>
             <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <h3>Turisme i Destinacions</h3>
-            <p>Vídeos promocionals que mostren la bellesa de llocs i destinacions per a ajuntaments, hotels i agències de turisme.</p>
+            <p>Vídeos promocionals per a ajuntaments, hotels i agències que volen mostrar la bellesa del territori.</p>
             <span class="service-card__tag">Turisme · Hotels · Destinacions</span>
           </article>
 
           <article class="service-card" data-animate>
+            <div class="service-card__num" aria-hidden="true">06</div>
             <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
             </div>
             <h3>Inspecció Tècnica</h3>
-            <p>Inspecció visual d'infraestructures, cobertes, torres elèctriques, ponts i instal·lacions industrials de forma segura.</p>
+            <p>Inspecció visual d'infraestructures, cobertes, torres, ponts i instal·lacions de forma segura.</p>
             <span class="service-card__tag">Industrial · Infraestructures · Energia</span>
           </article>
 
@@ -225,186 +357,57 @@
       </div>
     </section>
 
-    <!-- ==============================
-         PORTFOLIO
-    ============================== -->
-    <section id="portfolio" class="portfolio section">
-      <div class="container">
-        <header class="section__header">
-          <span class="section__label">Portfolio</span>
-          <h2 class="section__title">Projectes destacats</h2>
-          <p class="section__desc">Una selecció dels treballs més recents. Cada projecte és únic, creat amb màxima dedicació i qualitat tècnica.</p>
-        </header>
-
-        <div class="portfolio__filters" role="group" aria-label="Filtres del portfolio">
-          <button class="filter-btn is-active" data-filter="all">Tots</button>
-          <button class="filter-btn" data-filter="cinema">Cinema</button>
-          <button class="filter-btn" data-filter="turisme">Turisme</button>
-          <button class="filter-btn" data-filter="immobiliaria">Immobiliàri</button>
-          <button class="filter-btn" data-filter="esdeveniment">Esdeveniments</button>
-        </div>
-
-        <div class="portfolio__grid">
-
-          <!-- Per afegir les teves imatges, substitueix el gradient del 'portfolio-item__bg' per:
-               background-image: url('assets/nom-imatge.jpg'); background-size: cover; background-position: center; -->
-
-          <article class="portfolio-item" data-category="turisme" data-animate style="grid-row:1/3; grid-column:1;">
-            <div class="portfolio-item__bg" style="background:linear-gradient(160deg,#0a1628 0%,#0d3a6b 45%,#1565a0 75%,#0a2a50 100%)"></div>
-            <div class="portfolio-item__overlay">
-              <button class="portfolio-item__btn" aria-label="Veure projecte Costa Daurada">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </button>
-            </div>
-            <div class="portfolio-item__info">
-              <span class="portfolio-item__cat">Turisme</span>
-              <h3 class="portfolio-item__title">Promo Turística Costa Daurada</h3>
-            </div>
-          </article>
-
-          <article class="portfolio-item" data-category="cinema" data-animate style="grid-row:1; grid-column:2;">
-            <div class="portfolio-item__bg" style="background:linear-gradient(160deg,#120828 0%,#2d1b69 45%,#4a1fa0 75%,#1a0d40 100%)"></div>
-            <div class="portfolio-item__overlay">
-              <button class="portfolio-item__btn" aria-label="Veure projecte Videoclip">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </button>
-            </div>
-            <div class="portfolio-item__info">
-              <span class="portfolio-item__cat">Cinema</span>
-              <h3 class="portfolio-item__title">Videoclip — Artista Nacional</h3>
-            </div>
-          </article>
-
-          <article class="portfolio-item" data-category="immobiliaria" data-animate style="grid-row:1; grid-column:3;">
-            <div class="portfolio-item__bg" style="background:linear-gradient(160deg,#071a07 0%,#0d4a1e 45%,#1a6b2a 75%,#0a2810 100%)"></div>
-            <div class="portfolio-item__overlay">
-              <button class="portfolio-item__btn" aria-label="Veure projecte immobiliàri">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </button>
-            </div>
-            <div class="portfolio-item__info">
-              <span class="portfolio-item__cat">Immobiliàri</span>
-              <h3 class="portfolio-item__title">Promoció Residencial Tarragona</h3>
-            </div>
-          </article>
-
-          <article class="portfolio-item" data-category="turisme" data-animate style="grid-row:3; grid-column:1;">
-            <div class="portfolio-item__bg" style="background:linear-gradient(160deg,#1e0a02 0%,#6b2a0d 45%,#8b3a10 75%,#3a1205 100%)"></div>
-            <div class="portfolio-item__overlay">
-              <button class="portfolio-item__btn" aria-label="Veure projecte Terres de l'Ebre">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </button>
-            </div>
-            <div class="portfolio-item__info">
-              <span class="portfolio-item__cat">Turisme</span>
-              <h3 class="portfolio-item__title">Documental — Terres de l'Ebre</h3>
-            </div>
-          </article>
-
-          <article class="portfolio-item" data-category="esdeveniment" data-animate style="grid-row:2/4; grid-column:2;">
-            <div class="portfolio-item__bg" style="background:linear-gradient(160deg,#1a0505 0%,#5e1212 45%,#7a1a1a 75%,#2a0808 100%)"></div>
-            <div class="portfolio-item__overlay">
-              <button class="portfolio-item__btn" aria-label="Veure projecte casament">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </button>
-            </div>
-            <div class="portfolio-item__info">
-              <span class="portfolio-item__cat">Esdeveniments</span>
-              <h3 class="portfolio-item__title">Casament Finca Can Bosch — Tarragona</h3>
-            </div>
-          </article>
-
-          <article class="portfolio-item" data-category="cinema" data-animate style="grid-row:2/4; grid-column:3;">
-            <div class="portfolio-item__bg" style="background:linear-gradient(160deg,#0a1320 0%,#162b4a 45%,#1e3d6b 75%,#0a1828 100%)"></div>
-            <div class="portfolio-item__overlay">
-              <button class="portfolio-item__btn" aria-label="Veure projecte curtmetratge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </button>
-            </div>
-            <div class="portfolio-item__info">
-              <span class="portfolio-item__cat">Cinema</span>
-              <h3 class="portfolio-item__title">Curtmetratge — Producció Independent</h3>
-            </div>
-          </article>
-
-        </div>
-
-        <div class="portfolio__bottom">
-          <a href="#contacte" class="btn btn--primary">Parla'm del teu projecte</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==============================
-         SOBRE MI
-    ============================== -->
+    <!-- SOBRE MI -->
     <section id="sobre" class="sobre section">
       <div class="container">
         <div class="sobre__inner">
 
-          <div class="sobre__media" data-animate>
-            <div class="sobre__photo">
-              <!-- Per afegir la teva foto: substitueix el placeholder per <img src="assets/foto-perfil.jpg" alt="Francesc Ferré Magrinya"> -->
-              <div class="sobre__photo-placeholder" aria-label="Foto de Francesc Ferré Magrinya">
-                <svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <div class="sobre__visual" data-animate>
+            <div class="sobre__img-wrap">
+              <!-- Afegeix la teva foto: substitueix el div.sobre__placeholder per <img src="assets/foto-perfil.jpg" alt="Francesc Ferré Magrinya"> -->
+              <div class="sobre__placeholder">
+                <svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
                   <rect x="47" y="27" width="26" height="22" rx="5"/>
-                  <circle cx="60" cy="44" r="5"/>
-                  <circle cx="60" cy="44" r="2" fill="currentColor"/>
-                  <line x1="47" y1="31" x2="22" y2="15"/>
-                  <line x1="73" y1="31" x2="98" y2="15"/>
-                  <line x1="47" y1="44" x2="22" y2="60"/>
-                  <line x1="73" y1="44" x2="98" y2="60"/>
-                  <ellipse cx="22" cy="15" rx="13" ry="4.5"/>
-                  <ellipse cx="98" cy="15" rx="13" ry="4.5"/>
-                  <ellipse cx="22" cy="60" rx="13" ry="4.5"/>
-                  <ellipse cx="98" cy="60" rx="13" ry="4.5"/>
-                  <circle cx="22" cy="15" r="1.5" fill="currentColor"/>
-                  <circle cx="98" cy="15" r="1.5" fill="currentColor"/>
-                  <circle cx="22" cy="60" r="1.5" fill="currentColor"/>
-                  <circle cx="98" cy="60" r="1.5" fill="currentColor"/>
+                  <circle cx="60" cy="44" r="5"/><circle cx="60" cy="44" r="2" fill="currentColor"/>
+                  <line x1="47" y1="31" x2="22" y2="15"/><line x1="73" y1="31" x2="98" y2="15"/>
+                  <line x1="47" y1="44" x2="22" y2="60"/><line x1="73" y1="44" x2="98" y2="60"/>
+                  <ellipse cx="22" cy="15" rx="13" ry="4.5"/><ellipse cx="98" cy="15" rx="13" ry="4.5"/>
+                  <ellipse cx="22" cy="60" rx="13" ry="4.5"/><ellipse cx="98" cy="60" rx="13" ry="4.5"/>
+                  <circle cx="22" cy="15" r="1.5" fill="currentColor"/><circle cx="98" cy="15" r="1.5" fill="currentColor"/>
+                  <circle cx="22" cy="60" r="1.5" fill="currentColor"/><circle cx="98" cy="60" r="1.5" fill="currentColor"/>
                 </svg>
+                <span>Afegeix la teva foto</span>
               </div>
-              <div class="sobre__cert-badge">
-                <div class="sobre__cert-check">&#10003;</div>
-                <div>
-                  <strong>Pilot Certificat</strong>
-                  <small>AESA &middot; A1 / A2 / A3</small>
-                </div>
+              <div class="sobre__badge">
+                <span>✓</span>
+                <div><strong>Pilot Certificat</strong><small>AESA · A1/A2/A3</small></div>
               </div>
             </div>
           </div>
 
-          <div class="sobre__content" data-animate>
+          <div class="sobre__text" data-animate>
             <span class="section__label">Sobre mi</span>
             <h2 class="section__title">Hola, soc en<br><strong>Francesc Ferré</strong></h2>
-            <p>Soc especialista en cinematografia i fotografia aèria amb drons, amb base a El Pla de Santa Maria (Tarragona). La meva passió és capturar imatges que expliquen històries i transmeten emocions des de perspectives úniques.</p>
-            <p>Combino formació tècnica en cinematografia amb un profund coneixement dels sistemes de drons professionals. Treballo amb equip d'última generació per garantir sempre els millors resultats, tant en imatge com en vídeo.</p>
-            <p>Com a pilot certificat per l'Agencia Estatal de Seguridad Aérea (AESA), opero amb total seguretat i legalitat, fins i tot en espais aeris complexos i zones urbanes.</p>
+            <p>Soc especialista en cinematografia i fotografia aèria amb drons, amb base a El Pla de Santa Maria (Tarragona). La meva passió és capturar imatges que expliquen històries des de perspectives que l'ull humà no pot veure.</p>
+            <p>Combino formació tècnica en cinematografia amb un profund coneixement dels drons professionals. Treballo amb equip d'última generació per garantir resultats d'alta qualitat en qualsevol condició.</p>
+            <p>Pilot certificat per l'AESA, opero amb total seguretat i legalitat fins i tot en zones urbanes i espais aeris complexos.</p>
 
-            <div class="sobre__skills" aria-label="Habilitats tècniques">
+            <div class="sobre__skills">
               <div class="skill">
-                <div class="skill__header"><span>Cinematografia 4K/6K</span><span>95%</span></div>
-                <div class="skill__bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
-                  <div class="skill__fill" style="--w:95%"></div>
-                </div>
+                <div class="skill__head"><span>Cinematografia 4K/6K</span><span>95%</span></div>
+                <div class="skill__bar"><div class="skill__fill" style="--w:95%"></div></div>
               </div>
               <div class="skill">
-                <div class="skill__header"><span>Edició i Color Grading</span><span>90%</span></div>
-                <div class="skill__bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                  <div class="skill__fill" style="--w:90%"></div>
-                </div>
+                <div class="skill__head"><span>Edició &amp; Color Grading</span><span>90%</span></div>
+                <div class="skill__bar"><div class="skill__fill" style="--w:90%"></div></div>
               </div>
               <div class="skill">
-                <div class="skill__header"><span>Post-producció</span><span>88%</span></div>
-                <div class="skill__bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">
-                  <div class="skill__fill" style="--w:88%"></div>
-                </div>
+                <div class="skill__head"><span>Post-producció</span><span>88%</span></div>
+                <div class="skill__bar"><div class="skill__fill" style="--w:88%"></div></div>
               </div>
               <div class="skill">
-                <div class="skill__header"><span>Fotogrametria i Mapping</span><span>75%</span></div>
-                <div class="skill__bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                  <div class="skill__fill" style="--w:75%"></div>
-                </div>
+                <div class="skill__head"><span>Fotogrametria &amp; Mapping</span><span>75%</span></div>
+                <div class="skill__bar"><div class="skill__fill" style="--w:75%"></div></div>
               </div>
             </div>
           </div>
@@ -413,47 +416,43 @@
       </div>
     </section>
 
-    <!-- ==============================
-         ESTADÍSTIQUES
-    ============================== -->
-    <section class="stats" aria-label="Estadístiques">
+    <!-- STATS -->
+    <section class="stats">
       <div class="container">
         <div class="stats__grid">
           <div class="stat" data-animate>
-            <div class="stat__value"><span class="stat__num" data-count="150">0</span><span class="stat__sfx">+</span></div>
-            <span class="stat__label">Projectes completats</span>
+            <div class="stat__val"><span class="stat__n" data-count="150">0</span><span>+</span></div>
+            <span class="stat__lbl">Projectes completats</span>
           </div>
           <div class="stat" data-animate>
-            <div class="stat__value"><span class="stat__num" data-count="8">0</span><span class="stat__sfx">+</span></div>
-            <span class="stat__label">Anys d'experiència</span>
+            <div class="stat__val"><span class="stat__n" data-count="8">0</span><span>+</span></div>
+            <span class="stat__lbl">Anys d'experiència</span>
           </div>
           <div class="stat" data-animate>
-            <div class="stat__value"><span class="stat__num" data-count="60">0</span><span class="stat__sfx">+</span></div>
-            <span class="stat__label">Clients satisfets</span>
+            <div class="stat__val"><span class="stat__n" data-count="60">0</span><span>+</span></div>
+            <span class="stat__lbl">Clients satisfets</span>
           </div>
           <div class="stat" data-animate>
-            <div class="stat__value"><span class="stat__num" data-count="4">0</span><span class="stat__sfx">K</span></div>
-            <span class="stat__label">Resolució màxima</span>
+            <div class="stat__val"><span class="stat__n" data-count="4">0</span><span>K</span></div>
+            <span class="stat__lbl">Resolució màxima</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==============================
-         CONTACTE
-    ============================== -->
+    <!-- CONTACTE -->
     <section id="contacte" class="contacte section">
       <div class="container">
         <div class="contacte__inner">
 
-          <div class="contacte__info" data-animate>
+          <div class="contacte__left" data-animate>
             <span class="section__label">Contacte</span>
             <h2 class="section__title">Parlem del teu<br>projecte</h2>
-            <p>Tens un projecte en ment? M'encantaria escoltar la teva idea. Contacta'm sense compromís i et respondré en menys de 24 hores.</p>
+            <p>Tens una idea? M'encantaria escoltar-la. Contacta'm sense compromís i et respondré en menys de 24 hores.</p>
 
-            <div class="contacte__details">
-              <a href="mailto:francesc.ferre.magrinya@gmail.com" class="contacte__item">
-                <div class="contacte__icon" aria-hidden="true">
+            <div class="contacte__links">
+              <a href="mailto:francesc.ferre.magrinya@gmail.com" class="contacte__link">
+                <div class="contacte__link-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </div>
                 <div>
@@ -461,9 +460,8 @@
                   <strong>francesc.ferre.magrinya@gmail.com</strong>
                 </div>
               </a>
-
-              <div class="contacte__item">
-                <div class="contacte__icon" aria-hidden="true">
+              <div class="contacte__link">
+                <div class="contacte__link-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 </div>
                 <div>
@@ -474,7 +472,6 @@
             </div>
 
             <div class="contacte__social">
-              <!-- Canvia els href pels teus perfils reals -->
               <a href="#" class="social-btn" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                 Instagram
@@ -490,46 +487,46 @@
             </div>
           </div>
 
-          <div class="contacte__form-wrap" data-animate>
-            <form class="contacte__form" id="contact-form" novalidate>
-              <div class="form-row">
-                <div class="form-field">
-                  <label for="nom">Nom complet <span aria-hidden="true">*</span></label>
+          <div class="contacte__right" data-animate>
+            <form class="form" id="contact-form" novalidate>
+              <div class="form__row">
+                <div class="form__field">
+                  <label for="nom">Nom *</label>
                   <input type="text" id="nom" name="nom" placeholder="El teu nom" required autocomplete="name">
                 </div>
-                <div class="form-field">
-                  <label for="email">Email <span aria-hidden="true">*</span></label>
+                <div class="form__field">
+                  <label for="email">Email *</label>
                   <input type="email" id="email" name="email" placeholder="el-teu@email.com" required autocomplete="email">
                 </div>
               </div>
-              <div class="form-row">
-                <div class="form-field">
+              <div class="form__row">
+                <div class="form__field">
                   <label for="telefon">Telèfon</label>
                   <input type="tel" id="telefon" name="telefon" placeholder="+34 600 000 000" autocomplete="tel">
                 </div>
-                <div class="form-field">
-                  <label for="servei">Tipus de servei</label>
+                <div class="form__field">
+                  <label for="servei">Servei</label>
                   <select id="servei" name="servei">
-                    <option value="">Selecciona un servei</option>
-                    <option value="cinematografia">Cinematografia Aèria</option>
-                    <option value="fotografia">Fotografia Aèria</option>
-                    <option value="corporatiu">Vídeo Corporatiu</option>
-                    <option value="turisme">Turisme i Destinacions</option>
-                    <option value="esdeveniment">Cobertura d'Esdeveniments</option>
-                    <option value="inspeccio">Inspecció Tècnica</option>
-                    <option value="altres">Altres</option>
+                    <option value="">Selecciona...</option>
+                    <option>Cinematografia Aèria</option>
+                    <option>Fotografia Aèria</option>
+                    <option>Vídeo Corporatiu</option>
+                    <option>Turisme i Destinacions</option>
+                    <option>Cobertura d'Esdeveniments</option>
+                    <option>Inspecció Tècnica</option>
+                    <option>Altres</option>
                   </select>
                 </div>
               </div>
-              <div class="form-field">
-                <label for="missatge">Missatge <span aria-hidden="true">*</span></label>
-                <textarea id="missatge" name="missatge" rows="5" placeholder="Explica'm el teu projecte: localització, dates, necessitats..." required></textarea>
+              <div class="form__field">
+                <label for="missatge">Missatge *</label>
+                <textarea id="missatge" name="missatge" rows="5" placeholder="Explica'm el teu projecte..." required></textarea>
               </div>
-              <button type="submit" class="btn btn--primary btn--submit">
+              <button type="submit" class="btn btn--gold btn--submit">
                 <span class="btn-text">Enviar missatge</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               </button>
-              <p class="form-note">* Camps obligatoris &middot; Respondré en menys de 24 hores</p>
+              <p class="form__note">* Camps obligatoris · Respondré en menys de 24h</p>
             </form>
           </div>
 
@@ -539,42 +536,40 @@
 
   </main>
 
-  <!-- ==============================
-       PEU DE PÀGINA
-  ============================== -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
-          <a href="#inici" class="nav__logo" aria-label="Francesc Ferré Cinematografia">
-            <svg class="nav__logo-icon" viewBox="0 0 28 20" fill="none" aria-hidden="true">
-              <rect x="9" y="6" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="14" cy="11" r="1.5" fill="currentColor"/>
-              <line x1="9" y1="7.5" x2="2" y2="3" stroke="currentColor" stroke-width="1.2"/>
-              <line x1="19" y1="7.5" x2="26" y2="3" stroke="currentColor" stroke-width="1.2"/>
-              <line x1="9" y1="12.5" x2="2" y2="17" stroke="currentColor" stroke-width="1.2"/>
-              <line x1="19" y1="12.5" x2="26" y2="17" stroke="currentColor" stroke-width="1.2"/>
-              <ellipse cx="2" cy="3" rx="2.5" ry="1" stroke="currentColor" stroke-width="1.2"/>
-              <ellipse cx="26" cy="3" rx="2.5" ry="1" stroke="currentColor" stroke-width="1.2"/>
-              <ellipse cx="2" cy="17" rx="2.5" ry="1" stroke="currentColor" stroke-width="1.2"/>
-              <ellipse cx="26" cy="17" rx="2.5" ry="1" stroke="currentColor" stroke-width="1.2"/>
+          <a href="#inici" class="nav__logo" aria-label="Inici">
+            <svg viewBox="0 0 56 40" fill="none" aria-hidden="true">
+              <rect x="18" y="12" width="20" height="16" rx="4" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="28" cy="22" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="28" cy="22" r="1.5" fill="currentColor"/>
+              <line x1="18" y1="15" x2="4"  y2="6"  stroke="currentColor" stroke-width="1.2"/>
+              <line x1="38" y1="15" x2="52" y2="6"  stroke="currentColor" stroke-width="1.2"/>
+              <line x1="18" y1="25" x2="4"  y2="34" stroke="currentColor" stroke-width="1.2"/>
+              <line x1="38" y1="25" x2="52" y2="34" stroke="currentColor" stroke-width="1.2"/>
+              <ellipse cx="4"  cy="6"  rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+              <ellipse cx="52" cy="6"  rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+              <ellipse cx="4"  cy="34" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
+              <ellipse cx="52" cy="34" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/>
             </svg>
             <span>FRANCESC<strong>FERRÉ</strong></span>
           </a>
-          <p>Cinematografia professional amb drons a Tarragona i Catalunya. Imatges úniques des de l'aire.</p>
+          <p>Cinematografia professional amb drons a Tarragona i Catalunya.</p>
         </div>
-
-        <nav class="footer__nav" aria-label="Navegació secundària">
-          <h4>Navegació</h4>
+        <nav aria-label="Pàgines">
+          <h4>Pàgines</h4>
           <ul>
-            <li><a href="#serveis">Serveis</a></li>
+            <li><a href="#showreel">Showreel</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#serveis">Serveis</a></li>
             <li><a href="#sobre">Sobre mi</a></li>
             <li><a href="#contacte">Contacte</a></li>
           </ul>
         </nav>
-
-        <nav class="footer__nav" aria-label="Serveis">
+        <nav aria-label="Serveis">
           <h4>Serveis</h4>
           <ul>
             <li><a href="#serveis">Cinematografia Aèria</a></li>
@@ -583,27 +578,22 @@
             <li><a href="#serveis">Cobertura d'Esdeveniments</a></li>
           </ul>
         </nav>
-
-        <address class="footer__contact" aria-label="Contacte">
+        <address>
           <h4>Contacte</h4>
           <a href="mailto:francesc.ferre.magrinya@gmail.com">francesc.ferre.magrinya@gmail.com</a>
           <span>El Pla de Santa Maria</span>
           <span>43810 Tarragona, Catalunya</span>
         </address>
       </div>
-
       <div class="footer__bottom">
-        <p>&copy; 2025 Francesc Ferré Magrinya &middot; Tots els drets reservats</p>
-        <div class="footer__legal">
-          <a href="#">Política de Privacitat</a>
-          <a href="#">Avís Legal</a>
-        </div>
+        <p>&copy; 2025 Francesc Ferré Magrinya · Tots els drets reservats</p>
+        <div><a href="#">Privacitat</a><a href="#">Avís Legal</a></div>
       </div>
     </div>
   </footer>
 
-  <button class="back-top" id="back-top" aria-label="Tornar a l'inici">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+  <button class="back-top" id="back-top" aria-label="Tornar a dalt">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
   <script src="js/main.js"></script>
