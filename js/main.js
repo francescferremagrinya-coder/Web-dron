@@ -1,5 +1,8 @@
 'use strict';
 
+// Activa animacions CSS — sense JS el contingut és sempre visible
+document.documentElement.classList.add('js');
+
 // ─── LOADER ────────────────────────────────────────────────
 const loader = document.getElementById('loader');
 
@@ -110,7 +113,7 @@ const animObs = new IntersectionObserver(entries => {
     entry.target.classList.add('is-visible');
     animObs.unobserve(entry.target);
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+}, { threshold: 0.08 });
 
 document.querySelectorAll('[data-animate]').forEach(el => animObs.observe(el));
 
