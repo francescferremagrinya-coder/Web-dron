@@ -225,7 +225,7 @@
 
         <div class="portfolio__grid">
 
-          <article class="portfolio-item" data-category="paisatge" data-animate style="grid-row:1/3;grid-column:1">
+          <article class="portfolio-item" onclick="" data-category="paisatge" data-animate style="grid-row:1/3;grid-column:1">
             <img src="assets/nuvolada.jpg" alt="Silueta sobre mar de núvols al posta de sol" loading="lazy">
             <div class="portfolio-item__overlay">
               <div class="portfolio-item__info">
@@ -238,7 +238,7 @@
             </div>
           </article>
 
-          <article class="portfolio-item" data-category="arquitectura" data-animate style="grid-row:1;grid-column:2">
+          <article class="portfolio-item" onclick="" data-category="arquitectura" data-animate style="grid-row:1;grid-column:2">
             <img src="assets/poble-nit.jpg" alt="Vista aèria nocturna de poble medieval amb catedral" loading="lazy">
             <div class="portfolio-item__overlay">
               <div class="portfolio-item__info">
@@ -251,7 +251,7 @@
             </div>
           </article>
 
-          <article class="portfolio-item" data-category="industrial" data-animate style="grid-row:1;grid-column:3">
+          <article class="portfolio-item" onclick="" data-category="industrial" data-animate style="grid-row:1;grid-column:3">
             <img src="assets/eolic.jpg" alt="Molins de vent emergint entre boira" loading="lazy">
             <div class="portfolio-item__overlay">
               <div class="portfolio-item__info">
@@ -264,7 +264,7 @@
             </div>
           </article>
 
-          <article class="portfolio-item" data-category="arquitectura" data-animate style="grid-row:2;grid-column:2">
+          <article class="portfolio-item" onclick="" data-category="arquitectura" data-animate style="grid-row:2;grid-column:2">
             <img src="assets/arquitectura.jpg" alt="Vista zenital d'arquitectura orgànica única" loading="lazy">
             <div class="portfolio-item__overlay">
               <div class="portfolio-item__info">
@@ -277,7 +277,7 @@
             </div>
           </article>
 
-          <article class="portfolio-item" data-category="natura" data-animate style="grid-row:2;grid-column:3">
+          <article class="portfolio-item" onclick="" data-category="natura" data-animate style="grid-row:2;grid-column:3">
             <img src="assets/camp-ombra.jpg" alt="Ombra humana entre fileres d'arbres en flor" loading="lazy">
             <div class="portfolio-item__overlay">
               <div class="portfolio-item__info">
@@ -414,57 +414,8 @@
         </div>
 
         <div class="drone-showcase__right" data-animate>
-          <div class="drone-showcase__scene" aria-hidden="true">
-            <!-- Drone SVG flotant amb glow DJI-style -->
-            <svg class="drone-3d" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Glow aura -->
-              <ellipse cx="200" cy="240" rx="120" ry="18" fill="url(#glowEllipse)" opacity="0.6"/>
-              <!-- Propeller blur rings -->
-              <ellipse cx="72" cy="72"  rx="52" ry="14" stroke="#e8a020" stroke-width="0.6" opacity="0.35"/>
-              <ellipse cx="328" cy="72"  rx="52" ry="14" stroke="#e8a020" stroke-width="0.6" opacity="0.35"/>
-              <ellipse cx="72" cy="208" rx="52" ry="14" stroke="#e8a020" stroke-width="0.6" opacity="0.35"/>
-              <ellipse cx="328" cy="208" rx="52" ry="14" stroke="#e8a020" stroke-width="0.6" opacity="0.35"/>
-              <!-- Arms -->
-              <line x1="148" y1="118" x2="72"  y2="72"  stroke="#c8c8e8" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="252" y1="118" x2="328" y2="72"  stroke="#c8c8e8" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="148" y1="162" x2="72"  y2="208" stroke="#c8c8e8" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="252" y1="162" x2="328" y2="208" stroke="#c8c8e8" stroke-width="2.5" stroke-linecap="round"/>
-              <!-- Body -->
-              <rect x="140" y="108" width="120" height="64" rx="16" fill="#1a1a2e" stroke="#e8a020" stroke-width="1.2"/>
-              <rect x="148" y="116" width="104" height="48" rx="12" fill="#0d0d1a"/>
-              <!-- Camera gimbal -->
-              <rect x="178" y="172" width="44" height="30" rx="8" fill="#111120" stroke="#e8a020" stroke-width="0.8"/>
-              <circle cx="200" cy="188" r="12" fill="#0a0a18" stroke="#e8a020" stroke-width="0.8"/>
-              <circle cx="200" cy="188" r="7" fill="#050508"/>
-              <circle cx="200" cy="188" r="3" fill="#e8a020" opacity="0.8"/>
-              <!-- LED indicators -->
-              <circle cx="160" cy="130" r="3" fill="#e8a020" opacity="0.9"/>
-              <circle cx="240" cy="130" r="3" fill="#e8a020" opacity="0.9"/>
-              <circle cx="160" cy="148" r="2" fill="#4080ff" opacity="0.7"/>
-              <circle cx="240" cy="148" r="2" fill="#4080ff" opacity="0.7"/>
-              <!-- Propeller blades (static, subtle) -->
-              <ellipse cx="72"  cy="72"  rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(-20 72 72)"/>
-              <ellipse cx="72"  cy="72"  rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(70 72 72)"/>
-              <ellipse cx="328" cy="72"  rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(20 328 72)"/>
-              <ellipse cx="328" cy="72"  rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(-70 328 72)"/>
-              <ellipse cx="72"  cy="208" rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(20 72 208)"/>
-              <ellipse cx="72"  cy="208" rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(-70 72 208)"/>
-              <ellipse cx="328" cy="208" rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(-20 328 208)"/>
-              <ellipse cx="328" cy="208" rx="40" ry="5" fill="#e8a020" opacity="0.12" transform="rotate(70 328 208)"/>
-              <!-- Motor hubs -->
-              <circle cx="72"  cy="72"  r="8" fill="#1a1a2e" stroke="#e8a020" stroke-width="1"/>
-              <circle cx="328" cy="72"  r="8" fill="#1a1a2e" stroke="#e8a020" stroke-width="1"/>
-              <circle cx="72"  cy="208" r="8" fill="#1a1a2e" stroke="#e8a020" stroke-width="1"/>
-              <circle cx="328" cy="208" r="8" fill="#1a1a2e" stroke="#e8a020" stroke-width="1"/>
-              <defs>
-                <radialGradient id="glowEllipse" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#e8a020" stop-opacity="0.5"/>
-                  <stop offset="100%" stop-color="#e8a020" stop-opacity="0"/>
-                </radialGradient>
-              </defs>
-            </svg>
-            <!-- Scanning line effect -->
-            <div class="drone-showcase__scan" aria-hidden="true"></div>
+          <div class="drone-showcase__photo">
+            <img src="assets/eolic.jpg" alt="Dron professional operant en condicions atmosfèriques extremes">
           </div>
         </div>
 
@@ -543,19 +494,19 @@
       <div class="container">
         <div class="stats__grid">
           <div class="stat" data-animate>
-            <div class="stat__val"><span class="stat__n" data-count="150">0</span><span>+</span></div>
+            <div class="stat__val"><span class="stat__n" data-count="80">0</span><span>+</span></div>
             <span class="stat__lbl">Projectes completats</span>
           </div>
           <div class="stat" data-animate>
-            <div class="stat__val"><span class="stat__n" data-count="8">0</span><span>+</span></div>
+            <div class="stat__val"><span class="stat__n" data-count="6">0</span><span>+</span></div>
             <span class="stat__lbl">Anys d'experiència</span>
           </div>
           <div class="stat" data-animate>
-            <div class="stat__val"><span class="stat__n" data-count="60">0</span><span>+</span></div>
+            <div class="stat__val"><span class="stat__n" data-count="40">0</span><span>+</span></div>
             <span class="stat__lbl">Clients satisfets</span>
           </div>
           <div class="stat" data-animate>
-            <div class="stat__val"><span class="stat__n" data-count="4">0</span><span>K</span></div>
+            <div class="stat__val"><span class="stat__n" data-count="6">0</span><span>K</span></div>
             <span class="stat__lbl">Resolució màxima</span>
           </div>
         </div>
