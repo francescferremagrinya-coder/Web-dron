@@ -103,19 +103,25 @@ if (window.matchMedia('(hover: hover)').matches) {
 backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
 // ─── ANIMACIONS EN SCROLL ─────────────────────────────────
-const animObs = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    const siblings = Array.from(entry.target.parentElement.children)
-      .filter(el => el.hasAttribute('data-animate'));
-    const idx = siblings.indexOf(entry.target);
-    entry.target.style.transitionDelay = (idx * 80) + 'ms';
-    entry.target.classList.add('is-visible');
-    animObs.unobserve(entry.target);
-  });
-}, { threshold: 0.08 });
+// Marca tots com visibles immediatament (fallback segur)
+document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('is-visible'));
 
-document.querySelectorAll('[data-animate]').forEach(el => animObs.observe(el));
+// Millora progressiva: si IntersectionObserver disponible, anima en entrada
+if ('IntersectionObserver' in window) {
+  document.querySelectorAll('[data-animate]').forEach(el => el.classList.remove('is-visible'));
+  const animObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const siblings = Array.from(entry.target.parentElement.children)
+        .filter(el => el.hasAttribute('data-animate'));
+      const idx = siblings.indexOf(entry.target);
+      entry.target.style.transitionDelay = (idx * 80) + 'ms';
+      entry.target.classList.add('is-visible');
+      animObs.unobserve(entry.target);
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('[data-animate]').forEach(el => animObs.observe(el));
+}
 
 // ─── BARRES D'HABILITATS ──────────────────────────────────
 const skillsEl = document.querySelector('.sobre__skills');
