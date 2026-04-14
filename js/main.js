@@ -66,12 +66,8 @@ function closeMenu() {
 }
 
 if (navBurger) {
+  // <button> sempre rep click a iOS/Android — NO afegir touchstart (causaria doble toggle)
   navBurger.addEventListener('click', toggleMenu);
-  // touchstart com a fallback per a mòbils que no disparen click ràpid
-  navBurger.addEventListener('touchstart', function (e) {
-    e.preventDefault();
-    toggleMenu();
-  }, { passive: false });
 }
 
 if (navMenu) {
@@ -147,43 +143,42 @@ if (skillsEl) {
 }
 
 // ─── COMPTADORS ANIMATS ────────────────────────────────────
-function animateCounters() {
-  document.querySelectorAll('.stat__n[data-count]').forEach(el => {
-    if (el.dataset.animated) return; // evita re-executar
-    el.dataset.animated = '1';
-    const target = +el.dataset.count;
-    const start  = performance.now();
-    const dur    = 1800;
-    const tick   = now => {
-      const p     = Math.min((now - start) / dur, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.floor(eased * target);
-      if (p < 1) requestAnimationFrame(tick);
-      else el.textContent = target;
-    };
-    requestAnimationFrame(tick);
-  });
-}
+// Solució robusta: scroll listener pur, sense IntersectionObserver
+(function () {
+  const statsEl = document.querySelector('.stats');
+  if (!statsEl) return;
 
-const statsEl = document.querySelector('.stats');
-if (statsEl) {
-  let statsTriggered = false;
+  let done = false;
 
-  function checkStatsInView() {
-    if (statsTriggered) return;
-    const rect = statsEl.getBoundingClientRect();
-    // Dispara quan la secció és visible a pantalla (ni que sigui 1px)
-    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
-      statsTriggered = true;
-      animateCounters();
-      window.removeEventListener('scroll', checkStatsInView);
-    }
+  function runCounters() {
+    if (done) return;
+    done = true;
+    window.removeEventListener('scroll', check);
+
+    document.querySelectorAll('.stat__n[data-count]').forEach(function (el) {
+      const target = +el.dataset.count;
+      const start  = performance.now();
+      const dur    = 1600;
+      (function tick(now) {
+        const p     = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(eased * target);
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = target;
+      })(performance.now());
+    });
   }
 
-  // Comprova en cada scroll i també en càrrega (cas: secció ja visible)
-  window.addEventListener('scroll', checkStatsInView, { passive: true });
-  setTimeout(checkStatsInView, 400); // delay petit per esperar el layout
-}
+  function check() {
+    var rect = statsEl.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) runCounters();
+  }
+
+  window.addEventListener('scroll', check, { passive: true });
+  // Comprova immediatament i a 800ms (per si la secció ja és visible en càrrega)
+  check();
+  setTimeout(check, 800);
+}());
 
 // ─── FILTRE PORTFOLIO ──────────────────────────────────────
 document.querySelectorAll('.filter-btn').forEach(btn => {
