@@ -8,14 +8,14 @@
   <meta name="keywords" content="dron Tarragona, cinematografia aèria Catalunya, fotografia aèria, vídeo dron, pilot dron AESA, Francesc Ferré, El Pla de Santa Maria, aerial drone">
   <meta name="author" content="Francesc Ferré Magrinya">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.francescferremagrinya.com">
+  <link rel="canonical" href="https://francescferremagrinya-coder.github.io/Web-dron/">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ca_ES">
-  <meta property="og:title" content="Francesc Ferré | Dron Pilot & Cinematografia Aèria">
-  <meta property="og:description" content="Cinematografia i fotografia aèria professional amb drons a Tarragona i Catalunya.">
-  <meta property="og:url" content="https://www.francescferremagrinya.com">
-  <meta property="og:image" content="assets/nuvolada.jpg">
+  <meta property="og:title" content="Francesc Ferré | Dron Pilot & Cinematografia Aèria · Tarragona">
+  <meta property="og:description" content="Cinematografia i fotografia aèria professional amb drons a Tarragona i Catalunya. Pilot certificat AESA.">
+  <meta property="og:url" content="https://francescferremagrinya-coder.github.io/Web-dron/">
+  <meta property="og:image" content="https://francescferremagrinya-coder.github.io/Web-dron/assets/nuvolada.jpg">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Francesc Ferré | Dron Pilot & Cinematografia Aèria">
@@ -26,18 +26,37 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Francesc Ferré – Cinematografia amb Drons",
-    "description": "Cinematografia i fotografia aèria professional amb drons a Tarragona i Catalunya.",
+    "description": "Cinematografia i fotografia aèria professional amb drons a Tarragona i Catalunya. Pilot certificat AESA A1/A2/A3.",
+    "url": "https://francescferremagrinya-coder.github.io/Web-dron/",
     "email": "francesc.ferre.magrinya@gmail.com",
+    "image": "https://francescferremagrinya-coder.github.io/Web-dron/assets/nuvolada.jpg",
     "address": {
       "@type": "PostalAddress",
+      "streetAddress": "El Pla de Santa Maria",
       "addressLocality": "El Pla de Santa Maria",
       "postalCode": "43810",
       "addressRegion": "Tarragona",
       "addressCountry": "ES"
     },
     "geo": { "@type": "GeoCoordinates", "latitude": 41.3479, "longitude": 1.2878 },
-    "areaServed": [{"@type": "State","name": "Catalunya"}],
-    "priceRange": "€€"
+    "areaServed": [
+      {"@type": "State", "name": "Catalunya"},
+      {"@type": "City",  "name": "Tarragona"},
+      {"@type": "City",  "name": "Reus"},
+      {"@type": "City",  "name": "Barcelona"}
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Serveis de Cinematografia amb Dron",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Cinematografia Aèria"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Fotografia Aèria"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Vídeos Corporatius"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Cobertura d'Esdeveniments"}}
+      ]
+    },
+    "priceRange": "€€",
+    "knowsLanguage": ["ca", "es"]
   }
   </script>
 
@@ -57,26 +76,29 @@
 
   <!-- Loader -->
   <div class="loader" id="loader" aria-hidden="true">
-    <svg class="loader__drone" viewBox="0 0 80 72" fill="none">
-      <circle cx="10" cy="11" r="6.5" fill="currentColor"/>
-      <circle cx="70" cy="11" r="6.5" fill="currentColor"/>
-      <circle cx="10" cy="61" r="5.5" fill="currentColor"/>
-      <circle cx="70" cy="61" r="5.5" fill="currentColor"/>
-      <line x1="32" y1="30" x2="12" y2="14" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-      <line x1="48" y1="30" x2="68" y2="14" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-      <line x1="32" y1="44" x2="12" y2="58" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-      <line x1="48" y1="44" x2="68" y2="58" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-      <ellipse cx="40" cy="37" rx="13" ry="11" fill="currentColor"/>
-      <circle cx="40" cy="48" r="7" fill="currentColor"/>
-      <circle cx="40" cy="48" r="3" fill="var(--bg,#050507)"/>
-      <path d="M1,5 Q10,-3 19,5"   stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-      <path d="M1,17 Q10,25 19,17"  stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-      <path d="M61,5 Q70,-3 79,5"   stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-      <path d="M61,17 Q70,25 79,17"  stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-      <path d="M1,55 Q10,47 19,55"  stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-      <path d="M1,67 Q10,75 19,67"  stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-      <path d="M61,55 Q70,47 79,55" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-      <path d="M61,67 Q70,75 79,67" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <svg class="loader__drone" viewBox="0 0 100 82" fill="none">
+      <!-- Discs hèlixs davant (grans – perspectiva) -->
+      <ellipse cx="15" cy="17" rx="14" ry="5.5" stroke="currentColor" stroke-width="2.8"/>
+      <ellipse cx="85" cy="17" rx="14" ry="5.5" stroke="currentColor" stroke-width="2.8"/>
+      <!-- Discs hèlixs darrere (petits – perspectiva) -->
+      <ellipse cx="21" cy="65" rx="11" ry="4.2" stroke="currentColor" stroke-width="2.4"/>
+      <ellipse cx="79" cy="65" rx="11" ry="4.2" stroke="currentColor" stroke-width="2.4"/>
+      <!-- Braços davant -->
+      <line x1="33" y1="31" x2="16" y2="19" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+      <line x1="67" y1="31" x2="84" y2="19" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+      <!-- Braços darrere -->
+      <line x1="36" y1="52" x2="22" y2="63" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="64" y1="52" x2="78" y2="63" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- Cos (trapezi ample davant) -->
+      <path d="M31 29 L69 29 L65 53 L35 53 Z" fill="currentColor"/>
+      <!-- Càmera gimbal davant -->
+      <circle cx="50" cy="57" r="7.5" fill="currentColor"/>
+      <circle cx="50" cy="57" r="3.5" fill="var(--bg,#050507)"/>
+      <!-- Centres motors -->
+      <circle cx="15" cy="17" r="3" fill="currentColor"/>
+      <circle cx="85" cy="17" r="3" fill="currentColor"/>
+      <circle cx="21" cy="65" r="2.5" fill="currentColor"/>
+      <circle cx="79" cy="65" r="2.5" fill="currentColor"/>
     </svg>
     <p class="loader__name">FRANCESC FERRÉ</p>
     <div class="loader__track"><div class="loader__fill" id="loader-fill"></div></div>
@@ -86,26 +108,22 @@
   <header class="header" id="header">
     <nav class="nav container">
       <a href="#inici" class="nav__logo" aria-label="Inici">
-        <svg viewBox="0 0 80 72" fill="none" aria-hidden="true">
-          <circle cx="10" cy="11" r="6.5" fill="currentColor"/>
-          <circle cx="70" cy="11" r="6.5" fill="currentColor"/>
-          <circle cx="10" cy="61" r="5.5" fill="currentColor"/>
-          <circle cx="70" cy="61" r="5.5" fill="currentColor"/>
-          <line x1="32" y1="30" x2="12" y2="14" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="48" y1="30" x2="68" y2="14" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="32" y1="44" x2="12" y2="58" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-          <line x1="48" y1="44" x2="68" y2="58" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-          <ellipse cx="40" cy="37" rx="13" ry="11" fill="currentColor"/>
-          <circle cx="40" cy="48" r="7" fill="currentColor"/>
-          <circle cx="40" cy="48" r="3" fill="var(--bg,#050507)"/>
-          <path d="M1,5 Q10,-3 19,5"   stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-          <path d="M1,17 Q10,25 19,17"  stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-          <path d="M61,5 Q70,-3 79,5"   stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-          <path d="M61,17 Q70,25 79,17"  stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-          <path d="M1,55 Q10,47 19,55"  stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M1,67 Q10,75 19,67"  stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M61,55 Q70,47 79,55" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M61,67 Q70,75 79,67" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        <svg viewBox="0 0 100 82" fill="none" aria-hidden="true">
+          <ellipse cx="15" cy="17" rx="14" ry="5.5" stroke="currentColor" stroke-width="2.8"/>
+          <ellipse cx="85" cy="17" rx="14" ry="5.5" stroke="currentColor" stroke-width="2.8"/>
+          <ellipse cx="21" cy="65" rx="11" ry="4.2" stroke="currentColor" stroke-width="2.4"/>
+          <ellipse cx="79" cy="65" rx="11" ry="4.2" stroke="currentColor" stroke-width="2.4"/>
+          <line x1="33" y1="31" x2="16" y2="19" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <line x1="67" y1="31" x2="84" y2="19" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <line x1="36" y1="52" x2="22" y2="63" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="64" y1="52" x2="78" y2="63" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M31 29 L69 29 L65 53 L35 53 Z" fill="currentColor"/>
+          <circle cx="50" cy="57" r="7.5" fill="currentColor"/>
+          <circle cx="50" cy="57" r="3.5" fill="var(--bg,#050507)"/>
+          <circle cx="15" cy="17" r="3" fill="currentColor"/>
+          <circle cx="85" cy="17" r="3" fill="currentColor"/>
+          <circle cx="21" cy="65" r="2.5" fill="currentColor"/>
+          <circle cx="79" cy="65" r="2.5" fill="currentColor"/>
         </svg>
         <span>FRANCESC<strong>FERRÉ</strong></span>
       </a>
@@ -225,7 +243,7 @@
 
         <div class="portfolio__grid">
 
-          <article class="portfolio-item" onclick="" data-category="paisatge" data-animate style="grid-row:1/3;grid-column:1">
+          <article class="portfolio-item" role="button" tabindex="0" data-category="paisatge" data-animate style="grid-row:1/3;grid-column:1">
             <img src="assets/nuvolada.jpg" alt="Silueta sobre mar de núvols al posta de sol" loading="lazy">
             <div class="portfolio-item__overlay">
               <div class="portfolio-item__info">
@@ -238,7 +256,7 @@
             </div>
           </article>
 
-          <article class="portfolio-item" onclick="" data-category="arquitectura" data-animate style="grid-row:1;grid-column:2">
+          <article class="portfolio-item" role="button" tabindex="0" data-category="arquitectura" data-animate style="grid-row:1;grid-column:2">
             <img src="assets/poble-nit.jpg" alt="Vista aèria nocturna de poble medieval amb catedral" loading="lazy">
             <div class="portfolio-item__overlay">
               <div class="portfolio-item__info">
@@ -251,7 +269,7 @@
             </div>
           </article>
 
-          <article class="portfolio-item" onclick="" data-category="industrial" data-animate style="grid-row:1;grid-column:3">
+          <article class="portfolio-item" role="button" tabindex="0" data-category="industrial" data-animate style="grid-row:1;grid-column:3">
             <img src="assets/eolic.jpg" alt="Molins de vent emergint entre boira" loading="lazy">
             <div class="portfolio-item__overlay">
               <div class="portfolio-item__info">
@@ -264,7 +282,7 @@
             </div>
           </article>
 
-          <article class="portfolio-item" onclick="" data-category="arquitectura" data-animate style="grid-row:2;grid-column:2">
+          <article class="portfolio-item" role="button" tabindex="0" data-category="arquitectura" data-animate style="grid-row:2;grid-column:2">
             <img src="assets/arquitectura.jpg" alt="Vista zenital d'arquitectura orgànica única" loading="lazy">
             <div class="portfolio-item__overlay">
               <div class="portfolio-item__info">
@@ -277,7 +295,7 @@
             </div>
           </article>
 
-          <article class="portfolio-item" onclick="" data-category="natura" data-animate style="grid-row:2;grid-column:3">
+          <article class="portfolio-item" role="button" tabindex="0" data-category="natura" data-animate style="grid-row:2;grid-column:3">
             <img src="assets/camp-ombra.jpg" alt="Ombra humana entre fileres d'arbres en flor" loading="lazy">
             <div class="portfolio-item__overlay">
               <div class="portfolio-item__info">
@@ -615,23 +633,22 @@
       <div class="footer__grid">
         <div class="footer__brand">
           <a href="#inici" class="nav__logo" aria-label="Inici">
-            <svg viewBox="0 0 80 60" fill="none" aria-hidden="true">
-              <line x1="26" y1="22" x2="8"  y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <line x1="54" y1="22" x2="72" y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <line x1="26" y1="38" x2="8"  y2="50" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <line x1="54" y1="38" x2="72" y2="50" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <ellipse cx="8"  cy="10" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
-              <ellipse cx="72" cy="10" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
-              <ellipse cx="8"  cy="50" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
-              <ellipse cx="72" cy="50" rx="8" ry="2.5" stroke="currentColor" stroke-width="1.2"/>
-              <circle cx="8"  cy="10" r="2" fill="currentColor"/>
-              <circle cx="72" cy="10" r="2" fill="currentColor"/>
-              <circle cx="8"  cy="50" r="2" fill="currentColor"/>
-              <circle cx="72" cy="50" r="2" fill="currentColor"/>
-              <rect x="22" y="18" width="36" height="24" rx="7" stroke="currentColor" stroke-width="1.5"/>
-              <rect x="31" y="42" width="18" height="12" rx="4" stroke="currentColor" stroke-width="1.2"/>
-              <circle cx="40" cy="48" r="4" stroke="currentColor" stroke-width="1.2"/>
-              <circle cx="40" cy="48" r="1.5" fill="currentColor"/>
+            <svg viewBox="0 0 100 82" fill="none" aria-hidden="true">
+              <ellipse cx="15" cy="17" rx="14" ry="5.5" stroke="currentColor" stroke-width="2.8"/>
+              <ellipse cx="85" cy="17" rx="14" ry="5.5" stroke="currentColor" stroke-width="2.8"/>
+              <ellipse cx="21" cy="65" rx="11" ry="4.2" stroke="currentColor" stroke-width="2.4"/>
+              <ellipse cx="79" cy="65" rx="11" ry="4.2" stroke="currentColor" stroke-width="2.4"/>
+              <line x1="33" y1="31" x2="16" y2="19" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+              <line x1="67" y1="31" x2="84" y2="19" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+              <line x1="36" y1="52" x2="22" y2="63" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+              <line x1="64" y1="52" x2="78" y2="63" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M31 29 L69 29 L65 53 L35 53 Z" fill="currentColor"/>
+              <circle cx="50" cy="57" r="7.5" fill="currentColor"/>
+              <circle cx="50" cy="57" r="3.5" fill="var(--bg,#050507)"/>
+              <circle cx="15" cy="17" r="3" fill="currentColor"/>
+              <circle cx="85" cy="17" r="3" fill="currentColor"/>
+              <circle cx="21" cy="65" r="2.5" fill="currentColor"/>
+              <circle cx="79" cy="65" r="2.5" fill="currentColor"/>
             </svg>
             <span>FRANCESC<strong>FERRÉ</strong></span>
           </a>

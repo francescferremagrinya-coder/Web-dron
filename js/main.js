@@ -8,8 +8,9 @@ const loader = document.getElementById('loader');
 
 window.addEventListener('load', () => {
   setTimeout(() => {
-    loader.classList.add('is-done');
-    document.querySelector('.hero').classList.add('is-loaded');
+    if (loader) loader.classList.add('is-done');
+    const hero = document.querySelector('.hero');
+    if (hero) hero.classList.add('is-loaded');
     document.body.classList.add('is-loaded');
   }, 1600);
 });
@@ -22,11 +23,9 @@ const header    = document.getElementById('header');
 function onScroll() {
   const max      = document.documentElement.scrollHeight - window.innerHeight;
   const progress = max > 0 ? (window.scrollY / max) * 100 : 0;
-  scrollBar.style.width = progress + '%';
-
-  header.classList.toggle('scrolled',   window.scrollY > 50);
-  backTop.classList.toggle('is-visible', window.scrollY > 400);
-
+  if (scrollBar) scrollBar.style.width = progress + '%';
+  if (header)    header.classList.toggle('scrolled',   window.scrollY > 50);
+  if (backTop)   backTop.classList.toggle('is-visible', window.scrollY > 400);
   setActiveNav();
 }
 window.addEventListener('scroll', onScroll, { passive: true });
@@ -50,29 +49,42 @@ function setActiveNav() {
 const navBurger = document.getElementById('nav-burger');
 const navMenu   = document.getElementById('nav-menu');
 
-navBurger.addEventListener('click', () => {
+function toggleMenu() {
+  if (!navBurger || !navMenu) return;
   const open = navMenu.classList.toggle('is-open');
   navBurger.classList.toggle('is-open', open);
   navBurger.setAttribute('aria-expanded', String(open));
   document.body.style.overflow = open ? 'hidden' : '';
-});
-
-navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+}
 
 function closeMenu() {
+  if (!navBurger || !navMenu) return;
   navMenu.classList.remove('is-open');
   navBurger.classList.remove('is-open');
   navBurger.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
 }
 
+if (navBurger) {
+  navBurger.addEventListener('click', toggleMenu);
+  // touchstart com a fallback per a mòbils que no disparen click ràpid
+  navBurger.addEventListener('touchstart', function (e) {
+    e.preventDefault();
+    toggleMenu();
+  }, { passive: false });
+}
+
+if (navMenu) {
+  navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
 // ─── CURSOR PERSONALITZAT ─────────────────────────────────
 const ring = document.getElementById('cursor-ring');
 const dot  = document.getElementById('cursor-dot');
 let   mx = -999, my = -999, rx = -999, ry = -999;
 
-if (window.matchMedia('(hover: hover)').matches) {
+if (ring && dot && window.matchMedia('(hover: hover)').matches) {
   document.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
     dot.style.left  = mx + 'px';
@@ -81,7 +93,6 @@ if (window.matchMedia('(hover: hover)').matches) {
     ring.classList.add('is-visible');
   });
 
-  // Anell segueix amb inèrcia suau
   (function animateCursor() {
     rx += (mx - rx) * 0.14;
     ry += (my - ry) * 0.14;
@@ -100,7 +111,9 @@ if (window.matchMedia('(hover: hover)').matches) {
 }
 
 // ─── BACK TO TOP ──────────────────────────────────────────
-backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+if (backTop) {
+  backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
 
 // ─── ANIMACIONS EN SCROLL ─────────────────────────────────
 // Marca tots com visibles immediatament (fallback segur)
@@ -130,29 +143,39 @@ if (skillsEl) {
     if (!e.isIntersecting) return;
     skillsEl.classList.add('skills-animated');
     obs.disconnect();
-  }, { threshold: 0.4 }).observe(skillsEl);
+  }, { threshold: 0.3 }).observe(skillsEl);
 }
 
 // ─── COMPTADORS ANIMATS ────────────────────────────────────
+function animateCounters() {
+  document.querySelectorAll('.stat__n[data-count]').forEach(el => {
+    if (el.dataset.animated) return; // evita re-executar
+    el.dataset.animated = '1';
+    const target = +el.dataset.count;
+    const start  = performance.now();
+    const dur    = 1800;
+    const tick   = now => {
+      const p     = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(eased * target);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    };
+    requestAnimationFrame(tick);
+  });
+}
+
 const statsEl = document.querySelector('.stats');
 if (statsEl) {
-  new IntersectionObserver(([e], obs) => {
-    if (!e.isIntersecting) return;
-    document.querySelectorAll('.stat__n[data-count]').forEach(el => {
-      const target = +el.dataset.count;
-      const start  = performance.now();
-      const dur    = 1800;
-      const tick   = now => {
-        const p     = Math.min((now - start) / dur, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.floor(eased * target);
-        if (p < 1) requestAnimationFrame(tick);
-        else el.textContent = target;
-      };
-      requestAnimationFrame(tick);
-    });
-    obs.disconnect();
-  }, { threshold: 0.5 }).observe(statsEl);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([e], obs) => {
+      if (!e.isIntersecting) return;
+      animateCounters();
+      obs.disconnect();
+    }, { threshold: 0.15 }).observe(statsEl); // 0.15 en lloc de 0.5 → dispara molt més aviat
+  } else {
+    setTimeout(animateCounters, 800); // fallback sense IntersectionObserver
+  }
 }
 
 // ─── FILTRE PORTFOLIO ──────────────────────────────────────
@@ -171,27 +194,52 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 // ─── LIGHTBOX ──────────────────────────────────────────────
-const lightbox    = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
+const lightbox      = document.getElementById('lightbox');
+const lightboxImg   = document.getElementById('lightbox-img');
 const lightboxClose = document.getElementById('lightbox-close');
 
-document.querySelectorAll('.portfolio-item').forEach(item => {
-  item.addEventListener('click', () => {
-    const img = item.querySelector('img');
-    if (!img) return;
-    lightboxImg.src = img.src;
-    lightboxImg.alt = img.alt;
-    lightbox.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-  });
-});
+function openLightbox(imgEl) {
+  if (!lightbox || !lightboxImg || !imgEl) return;
+  lightboxImg.src = imgEl.src;
+  lightboxImg.alt = imgEl.alt;
+  lightbox.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
 
 function closeLightbox() {
+  if (!lightbox) return;
   lightbox.classList.remove('is-open');
   document.body.style.overflow = '';
 }
-lightboxClose.addEventListener('click', closeLightbox);
-lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+document.querySelectorAll('.portfolio-item').forEach(item => {
+  let touchStartY = 0;
+
+  // Guardem posició Y inicial per distingir tap de scroll
+  item.addEventListener('touchstart', e => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  // touchend: obre lightbox si no és scroll (delta < 8px)
+  // preventDefault evita el click sintètic posterior (evita doble disparada)
+  item.addEventListener('touchend', function (e) {
+    const delta = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    if (delta < 8) {
+      e.preventDefault();
+      openLightbox(item.querySelector('img'));
+    }
+  }, { passive: false });
+
+  // click: desktop (el touchend ja fa preventDefault en tap mòbil)
+  item.addEventListener('click', () => {
+    openLightbox(item.querySelector('img'));
+  });
+});
+
+if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+if (lightbox) {
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+}
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
 // ─── FORMULARI ────────────────────────────────────────────
@@ -199,11 +247,11 @@ const form = document.getElementById('contact-form');
 if (form) {
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    const btnText  = form.querySelector('.btn-text');
+    const btnText   = form.querySelector('.btn-text');
     const submitBtn = form.querySelector('[type="submit"]');
-    const original = btnText.textContent;
+    if (!btnText || !submitBtn) return;
+    const original  = btnText.textContent;
 
-    // Validació
     let valid = true;
     form.querySelectorAll('[required]').forEach(field => {
       const err = !field.value.trim();
@@ -219,8 +267,8 @@ if (form) {
     });
     if (!valid) return;
 
-    btnText.textContent  = 'Enviant...';
-    submitBtn.disabled   = true;
+    btnText.textContent = 'Enviant...';
+    submitBtn.disabled  = true;
 
     // TODO: connecta amb Formspree o el teu backend:
     // const res = await fetch('https://formspree.io/f/XXXXXXXX', {

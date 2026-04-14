@@ -252,7 +252,7 @@ address { font-style: normal; }
 .nav__link--cta::after { display: none; }
 .nav__link--cta:hover { background: var(--gold-l); }
 
-.nav__burger { display: none; flex-direction: column; gap: 5px; padding: 8px; z-index: 1001; position: relative; }
+.nav__burger { display: none; flex-direction: column; gap: 5px; padding: 8px; z-index: 1001; position: relative; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .nav__burger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: var(--tr); }
 
 /* =====================================================
@@ -515,6 +515,9 @@ address { font-style: normal; }
   overflow: hidden;
   cursor: pointer;
   background: var(--card);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 .portfolio-item img {
   position: absolute;
@@ -1015,14 +1018,15 @@ address { font-style: normal; }
    RESPONSIVE — MÒBIL
 ===================================================== */
 @media (max-width: 768px) {
-  .nav__burger { display: flex; }
+  .nav__burger { display: flex; z-index: 1100; } /* explícitament per sobre del menú */
   .nav__menu {
     position: fixed; inset: 0;
     background: rgba(5,5,7,.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     flex-direction: column; justify-content: center; gap: 36px;
-    transform: translateX(100%); transition: transform .35s ease; z-index: 1000;
+    transform: translateX(100%); transition: transform .35s ease; z-index: 1050;
+    pointer-events: none; /* no bloqueja clics quan està tancat/fora de pantalla */
   }
-  .nav__menu.is-open { transform: none; }
+  .nav__menu.is-open { transform: none; pointer-events: auto; }
   .nav__link { font-size: 1.4rem; color: var(--white); }
   .nav__link--cta { font-size: .9rem; padding: 12px 28px; }
   .nav__link::after { display: none; }

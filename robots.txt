@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://francescferremagrinya-coder.github.io/Web-dron/sitemap.xml
