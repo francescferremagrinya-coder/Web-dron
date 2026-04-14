@@ -167,15 +167,22 @@ function animateCounters() {
 
 const statsEl = document.querySelector('.stats');
 if (statsEl) {
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(([e], obs) => {
-      if (!e.isIntersecting) return;
+  let statsTriggered = false;
+
+  function checkStatsInView() {
+    if (statsTriggered) return;
+    const rect = statsEl.getBoundingClientRect();
+    // Dispara quan la secció és visible a pantalla (ni que sigui 1px)
+    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+      statsTriggered = true;
       animateCounters();
-      obs.disconnect();
-    }, { threshold: 0.15 }).observe(statsEl); // 0.15 en lloc de 0.5 → dispara molt més aviat
-  } else {
-    setTimeout(animateCounters, 800); // fallback sense IntersectionObserver
+      window.removeEventListener('scroll', checkStatsInView);
+    }
   }
+
+  // Comprova en cada scroll i també en càrrega (cas: secció ja visible)
+  window.addEventListener('scroll', checkStatsInView, { passive: true });
+  setTimeout(checkStatsInView, 400); // delay petit per esperar el layout
 }
 
 // ─── FILTRE PORTFOLIO ──────────────────────────────────────
