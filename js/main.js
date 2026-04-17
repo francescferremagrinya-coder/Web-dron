@@ -51,7 +51,23 @@ const navMenu   = document.getElementById('nav-menu');
 
 function openMenu() {
   if (!navBurger || !navMenu) return;
-  navMenu.style.cssText = 'display:flex!important;position:fixed!important;inset:0!important;width:100%!important;height:100%!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:36px!important;background:rgba(5,5,7,.97)!important;z-index:99999!important;';
+  navMenu.classList.add('is-open');
+  var s = navMenu.style;
+  s.display    = 'flex';
+  s.position   = 'fixed';
+  s.top        = '0';
+  s.left       = '0';
+  s.width      = '100vw';
+  s.height     = '100vh';
+  s.flexDirection  = 'column';
+  s.justifyContent = 'center';
+  s.alignItems     = 'center';
+  s.gap        = '36px';
+  s.background = 'rgba(5,5,7,0.97)';
+  s.zIndex     = '99999';
+  s.visibility = 'visible';
+  s.opacity    = '1';
+  s.pointerEvents = 'auto';
   navBurger.classList.add('is-open');
   navBurger.setAttribute('aria-expanded', 'true');
   document.body.style.overflow = 'hidden';
@@ -59,15 +75,15 @@ function openMenu() {
 
 function closeMenu() {
   if (!navBurger || !navMenu) return;
-  navMenu.style.cssText = '';
   navMenu.classList.remove('is-open');
+  navMenu.style.cssText = '';
   navBurger.classList.remove('is-open');
   navBurger.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
 }
 
 function toggleMenu() {
-  navMenu && navMenu.style.display === 'flex' ? closeMenu() : openMenu();
+  navMenu && navMenu.classList.contains('is-open') ? closeMenu() : openMenu();
 }
 
 if (navBurger) {
