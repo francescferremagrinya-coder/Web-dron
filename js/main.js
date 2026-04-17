@@ -144,45 +144,45 @@ if (skillsEl) {
 
 // ─── COMPTADORS ANIMATS ────────────────────────────────────
 (function () {
-  const statsEl = document.querySelector('.stats');
-  if (!statsEl) return;
+  var counters = document.querySelectorAll('.stat__n[data-count]');
+  if (!counters.length) return;
+  var done = false;
 
-  let done = false;
+  function animateCounter(el) {
+    var target = +el.dataset.count;
+    var step = 0, steps = 50;
+    var iv = setInterval(function () {
+      step++;
+      var p = step / steps;
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target);
+      if (step >= steps) { el.textContent = target; clearInterval(iv); }
+    }, 30);
+  }
 
-  function runCounters() {
+  function run() {
     if (done) return;
     done = true;
-    window.removeEventListener('scroll', check);
+    counters.forEach(animateCounter);
+  }
 
-    document.querySelectorAll('.stat__n[data-count]').forEach(function (el) {
-      const target = +el.dataset.count;
-      let current  = 0;
-      const steps  = 60;
-      let step     = 0;
-      const iv = setInterval(function () {
-        step++;
-        const p = step / steps;
-        const eased = 1 - Math.pow(1 - p, 3);
-        current = Math.floor(eased * target);
-        el.textContent = current;
-        if (step >= steps) { el.textContent = target; clearInterval(iv); }
-      }, 1600 / steps);
+  // Trigger 1: quan l'usuari fa scroll fins als comptadors
+  window.addEventListener('scroll', function () {
+    counters.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) run();
     });
-  }
+  }, { passive: true });
 
-  function check() {
-    var rect = statsEl.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) runCounters();
-  }
+  // Trigger 2: safety net — s'executa sempre als 3s independentment de scroll
+  setTimeout(run, 3000);
 
-  window.addEventListener('scroll', check, { passive: true });
-  check();
-  setTimeout(check, 500);
-  setTimeout(check, 2000);
+  // Trigger 3: IntersectionObserver per màxima compatibilitat
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries, obs) {
-      if (entries[0].isIntersecting) { runCounters(); obs.disconnect(); }
-    }, { threshold: 0.1 }).observe(statsEl);
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { run(); obs.disconnect(); } });
+    }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+    counters.forEach(function (el) { obs.observe(el); });
   }
 }());
 
