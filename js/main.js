@@ -143,7 +143,6 @@ if (skillsEl) {
 }
 
 // ─── COMPTADORS ANIMATS ────────────────────────────────────
-// Solució robusta: scroll listener pur, sense IntersectionObserver
 (function () {
   const statsEl = document.querySelector('.stats');
   if (!statsEl) return;
@@ -157,27 +156,34 @@ if (skillsEl) {
 
     document.querySelectorAll('.stat__n[data-count]').forEach(function (el) {
       const target = +el.dataset.count;
-      const start  = performance.now();
-      const dur    = 1600;
-      (function tick(now) {
-        const p     = Math.min((now - start) / dur, 1);
+      let current  = 0;
+      const steps  = 60;
+      let step     = 0;
+      const iv = setInterval(function () {
+        step++;
+        const p = step / steps;
         const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.floor(eased * target);
-        if (p < 1) requestAnimationFrame(tick);
-        else el.textContent = target;
-      })(performance.now());
+        current = Math.floor(eased * target);
+        el.textContent = current;
+        if (step >= steps) { el.textContent = target; clearInterval(iv); }
+      }, 1600 / steps);
     });
   }
 
   function check() {
     var rect = statsEl.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) runCounters();
+    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) runCounters();
   }
 
   window.addEventListener('scroll', check, { passive: true });
-  // Comprova immediatament i a 800ms (per si la secció ja és visible en càrrega)
   check();
-  setTimeout(check, 800);
+  setTimeout(check, 500);
+  setTimeout(check, 2000);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries, obs) {
+      if (entries[0].isIntersecting) { runCounters(); obs.disconnect(); }
+    }, { threshold: 0.1 }).observe(statsEl);
+  }
 }());
 
 // ─── FILTRE PORTFOLIO ──────────────────────────────────────
@@ -272,20 +278,24 @@ if (form) {
     btnText.textContent = 'Enviant...';
     submitBtn.disabled  = true;
 
-    // TODO: connecta amb Formspree o el teu backend:
-    // const res = await fetch('https://formspree.io/f/XXXXXXXX', {
-    //   method: 'POST', headers: { Accept: 'application/json' },
-    //   body: new FormData(form)
-    // });
-
-    await new Promise(r => setTimeout(r, 1400));
-
-    btnText.textContent = '✓ Missatge enviat!';
-    form.reset();
-
-    setTimeout(() => {
-      btnText.textContent = original;
-      submitBtn.disabled  = false;
-    }, 3500);
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+      const data = await res.json();
+      if (data.success) {
+        btnText.textContent = '✓ Missatge enviat!';
+        form.reset();
+        setTimeout(() => { btnText.textContent = original; submitBtn.disabled = false; }, 3500);
+      } else {
+        throw new Error(data.message || 'Error');
+      }
+    } catch {
+      btnText.textContent = '✗ Error. Torna a intentar-ho.';
+      submitBtn.disabled = false;
+      setTimeout(() => { btnText.textContent = original; }, 4000);
+    }
   });
 }

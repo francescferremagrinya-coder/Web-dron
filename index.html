@@ -579,7 +579,11 @@
           </div>
 
           <div class="contacte__right" data-animate>
+            <!-- Obté la teva clau gratuïta a https://web3forms.com → substitueix el value -->
             <form class="form" id="contact-form" novalidate>
+              <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY">
+              <input type="hidden" name="subject" value="Nova sol·licitud des de Web-dron">
+              <input type="hidden" name="from_name" value="Web Dron Portfolio">
               <div class="form__row">
                 <div class="form__field">
                   <label for="nom">Nom *</label>
@@ -691,6 +695,6 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=5"></script>
 </body>
 </html>
