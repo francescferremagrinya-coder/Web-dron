@@ -49,20 +49,25 @@ function setActiveNav() {
 const navBurger = document.getElementById('nav-burger');
 const navMenu   = document.getElementById('nav-menu');
 
-function toggleMenu() {
+function openMenu() {
   if (!navBurger || !navMenu) return;
-  const open = navMenu.classList.toggle('is-open');
-  navBurger.classList.toggle('is-open', open);
-  navBurger.setAttribute('aria-expanded', String(open));
-  document.body.style.overflow = open ? 'hidden' : '';
+  navMenu.style.cssText = 'display:flex!important;position:fixed!important;inset:0!important;width:100%!important;height:100%!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:36px!important;background:rgba(5,5,7,.97)!important;z-index:99999!important;';
+  navBurger.classList.add('is-open');
+  navBurger.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeMenu() {
   if (!navBurger || !navMenu) return;
+  navMenu.style.cssText = '';
   navMenu.classList.remove('is-open');
   navBurger.classList.remove('is-open');
   navBurger.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
+}
+
+function toggleMenu() {
+  navMenu && navMenu.style.display === 'flex' ? closeMenu() : openMenu();
 }
 
 if (navBurger) {
