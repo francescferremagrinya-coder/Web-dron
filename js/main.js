@@ -174,8 +174,8 @@ if (skillsEl) {
     });
   }, { passive: true });
 
-  // Trigger 2: safety net — s'executa sempre als 3s independentment de scroll
-  setTimeout(run, 3000);
+  // Trigger 2: check quan la pàgina acaba de carregar
+  window.addEventListener('load', checkScroll);
 
   // Trigger 3: IntersectionObserver per màxima compatibilitat
   if ('IntersectionObserver' in window) {

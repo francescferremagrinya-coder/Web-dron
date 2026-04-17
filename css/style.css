@@ -1025,10 +1025,12 @@ address { font-style: normal; }
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
     background: rgba(5,5,7,.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    flex-direction: column; justify-content: center; gap: 36px;
-    z-index: 1050; display: none;
+    flex-direction: column; justify-content: center; align-items: center; gap: 36px;
+    z-index: 1050;
+    visibility: hidden; opacity: 0; pointer-events: none;
+    transition: opacity .3s ease, visibility .3s ease;
   }
-  .nav__menu.is-open { display: flex; animation: menuIn .28s ease; }
+  .nav__menu.is-open { visibility: visible; opacity: 1; pointer-events: auto; animation: menuIn .28s ease; }
   .nav__link { font-size: 1.4rem; color: var(--white); }
   .nav__link--cta { font-size: .9rem; padding: 12px 28px; }
   .nav__link::after { display: none; }
