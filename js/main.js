@@ -205,14 +205,28 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 // ─── LIGHTBOX ──────────────────────────────────────────────
-const lightbox      = document.getElementById('lightbox');
-const lightboxImg   = document.getElementById('lightbox-img');
-const lightboxClose = document.getElementById('lightbox-close');
+const lightbox       = document.getElementById('lightbox');
+const lightboxImg    = document.getElementById('lightbox-img');
+const lightboxClose  = document.getElementById('lightbox-close');
+const lightboxPrev   = document.getElementById('lightbox-prev');
+const lightboxNext   = document.getElementById('lightbox-next');
+const lightboxCat    = document.getElementById('lightbox-cat');
+const lightboxTitle  = document.getElementById('lightbox-title');
+const lightboxCount  = document.getElementById('lightbox-counter');
 
-function openLightbox(imgEl) {
-  if (!lightbox || !lightboxImg || !imgEl) return;
-  lightboxImg.src = imgEl.src;
-  lightboxImg.alt = imgEl.alt;
+const galleryItems = Array.from(document.querySelectorAll('.portfolio-item'));
+let lbIndex = 0;
+
+function openLightbox(idx) {
+  const item = galleryItems[idx];
+  if (!lightbox || !lightboxImg || !item) return;
+  lbIndex = idx;
+  const img = item.querySelector('img');
+  lightboxImg.src = img.src;
+  lightboxImg.alt = img.alt;
+  if (lightboxCat)   lightboxCat.textContent   = item.querySelector('.portfolio-item__cat')?.textContent || '';
+  if (lightboxTitle) lightboxTitle.textContent = item.querySelector('h3')?.textContent || '';
+  if (lightboxCount) lightboxCount.textContent = (idx + 1) + ' / ' + galleryItems.length;
   lightbox.classList.add('is-open');
   document.body.style.overflow = 'hidden';
 }
@@ -223,35 +237,39 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 
-document.querySelectorAll('.portfolio-item').forEach(item => {
-  let touchStartY = 0;
+function lbNav(dir) {
+  openLightbox((lbIndex + dir + galleryItems.length) % galleryItems.length);
+}
 
-  // Guardem posició Y inicial per distingir tap de scroll
-  item.addEventListener('touchstart', e => {
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-
-  // touchend: obre lightbox si no és scroll (delta < 8px)
-  // preventDefault evita el click sintètic posterior (evita doble disparada)
-  item.addEventListener('touchend', function (e) {
-    const delta = Math.abs(e.changedTouches[0].clientY - touchStartY);
-    if (delta < 8) {
-      e.preventDefault();
-      openLightbox(item.querySelector('img'));
+galleryItems.forEach((item, i) => {
+  let startY = 0;
+  item.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+  item.addEventListener('touchend', e => {
+    if (Math.abs(e.changedTouches[0].clientY - startY) < 8) {
+      e.preventDefault(); openLightbox(i);
     }
   }, { passive: false });
-
-  // click: desktop (el touchend ja fa preventDefault en tap mòbil)
-  item.addEventListener('click', () => {
-    openLightbox(item.querySelector('img'));
-  });
+  item.addEventListener('click', () => openLightbox(i));
 });
 
 if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+if (lightboxPrev)  lightboxPrev.addEventListener('click', () => lbNav(-1));
+if (lightboxNext)  lightboxNext.addEventListener('click', () => lbNav(1));
 if (lightbox) {
   lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  let lbSwipeX = 0;
+  lightbox.addEventListener('touchstart', e => { lbSwipeX = e.touches[0].clientX; }, { passive: true });
+  lightbox.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - lbSwipeX;
+    if (Math.abs(dx) > 50) lbNav(dx < 0 ? 1 : -1);
+  }, { passive: true });
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+document.addEventListener('keydown', e => {
+  if (!lightbox?.classList.contains('is-open')) return;
+  if (e.key === 'Escape')      closeLightbox();
+  if (e.key === 'ArrowLeft')   lbNav(-1);
+  if (e.key === 'ArrowRight')  lbNav(1);
+});
 
 // ─── FORMULARI ────────────────────────────────────────────
 const form = document.getElementById('contact-form');

@@ -63,7 +63,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=9">
+  <link rel="stylesheet" href="css/style.css?v=10">
 </head>
 <body>
 
@@ -321,7 +321,18 @@
       <button class="lightbox__close" id="lightbox-close" aria-label="Tancar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
+      <button class="lightbox__nav lightbox__prev" id="lightbox-prev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="lightbox__nav lightbox__next" id="lightbox-next" aria-label="Següent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
       <img class="lightbox__img" id="lightbox-img" src="" alt="">
+      <div class="lightbox__caption">
+        <span class="lightbox__caption-cat" id="lightbox-cat"></span>
+        <span class="lightbox__caption-title" id="lightbox-title"></span>
+      </div>
+      <div class="lightbox__counter" id="lightbox-counter"></div>
     </div>
 
     <!-- SERVEIS -->
@@ -654,6 +665,6 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
-  <script src="js/main.js?v=9"></script>
+  <script src="js/main.js?v=10"></script>
 </body>
 </html>
