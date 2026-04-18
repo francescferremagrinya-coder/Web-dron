@@ -49,42 +49,24 @@ function setActiveNav() {
 const navBurger = document.getElementById('nav-burger');
 const navMenu   = document.getElementById('nav-menu');
 
-function openMenu() {
+function toggleMenu() {
   if (!navBurger || !navMenu) return;
-  navMenu.classList.add('is-open');
-  var s = navMenu.style;
-  s.display    = 'flex';
-  s.position   = 'fixed';
-  s.top        = '0';
-  s.left       = '0';
-  s.width      = '100vw';
-  s.height     = '100vh';
-  s.flexDirection  = 'column';
-  s.justifyContent = 'center';
-  s.alignItems     = 'center';
-  s.gap        = '36px';
-  s.background = 'rgba(5,5,7,0.97)';
-  s.zIndex     = '99999';
-  s.visibility = 'visible';
-  s.opacity    = '1';
-  s.pointerEvents = 'auto';
-  navBurger.classList.add('is-open');
-  navBurger.setAttribute('aria-expanded', 'true');
-  document.body.style.overflow = 'hidden';
+  const open = navMenu.classList.toggle('is-open');
+  navBurger.classList.toggle('is-open', open);
+  navBurger.setAttribute('aria-expanded', String(open));
+  document.body.style.overflow = open ? 'hidden' : '';
 }
 
 function closeMenu() {
   if (!navBurger || !navMenu) return;
   navMenu.classList.remove('is-open');
-  navMenu.style.cssText = '';
   navBurger.classList.remove('is-open');
   navBurger.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
 }
 
-function toggleMenu() {
-  navMenu && navMenu.classList.contains('is-open') ? closeMenu() : openMenu();
-}
+// Mou el menú fora del header per escapar del seu stacking context (z-index:1000)
+if (header && navMenu) header.after(navMenu);
 
 if (navBurger) {
   // <button> sempre rep click a iOS/Android — NO afegir touchstart (causaria doble toggle)
