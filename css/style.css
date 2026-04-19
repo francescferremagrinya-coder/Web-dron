@@ -792,6 +792,94 @@ address { font-style: normal; }
 .skills-animated .skill__fill { width: var(--w); }
 
 /* =====================================================
+   PREUS
+===================================================== */
+.preus__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.preu-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--tr), transform var(--tr);
+}
+.preu-card:hover { border-color: rgba(232,160,32,0.35); transform: translateY(-4px); }
+
+.preu-card--featured {
+  border-color: var(--gold);
+  background: linear-gradient(145deg, rgba(232,160,32,0.06) 0%, var(--card) 60%);
+}
+.preu-card--featured:hover { border-color: var(--gold-l); }
+
+.preu-card__badge {
+  position: absolute;
+  top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--gold);
+  color: #000;
+  font-family: var(--fh); font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 16px; border-radius: 20px;
+  white-space: nowrap;
+}
+
+.preu-card__head { margin-bottom: 28px; }
+
+.preu-card__label {
+  display: block;
+  font-family: var(--fh); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--grey); margin-bottom: 12px;
+}
+.preu-card--featured .preu-card__label { color: var(--gold); }
+
+.preu-card__price {
+  display: flex; align-items: flex-start; gap: 4px;
+  margin-bottom: 10px;
+}
+.preu-card__amount {
+  font-family: var(--fh); font-size: clamp(2.6rem, 5vw, 3.4rem);
+  font-weight: 800; color: var(--white); line-height: 1;
+}
+.preu-card__cur {
+  font-family: var(--fh); font-size: 1.2rem; font-weight: 700;
+  color: var(--gold); padding-top: 6px;
+}
+
+.preu-card__sub {
+  font-size: 0.82rem; color: var(--grey); line-height: 1.5;
+}
+
+.preu-card__list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 12px;
+  margin-bottom: 32px; flex: 1;
+}
+.preu-card__list li {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.85rem; color: rgba(240,240,248,0.85);
+}
+.preu-card__list li svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--gold); }
+.preu-card__list li.disabled { color: var(--grey); }
+.preu-card__list li.disabled svg { color: var(--grey); }
+
+.preu-card__cta { text-align: center; justify-content: center; }
+
+.preus__note {
+  text-align: center;
+  font-size: 0.78rem; color: var(--grey);
+  max-width: 640px; margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* =====================================================
    DRONE SHOWCASE (DJI-style)
 ===================================================== */
 .drone-showcase {
@@ -1119,6 +1207,7 @@ address { font-style: normal; }
   .portfolio-item:first-child { flex: 0 0 82vw; height: 56vw; }
 
   .serveis__grid { grid-template-columns: 1fr; }
+  .preus__grid { grid-template-columns: 1fr; gap: 28px; }
 
   .drone-showcase__inner { grid-template-columns: 1fr; text-align: center; }
   .drone-showcase__right { order: -1; }

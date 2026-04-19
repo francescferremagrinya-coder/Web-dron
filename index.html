@@ -63,7 +63,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="css/style.css?v=12">
 </head>
 <body>
 
@@ -133,6 +133,7 @@
         <li><a href="#showreel"  class="nav__link">Showreel</a></li>
         <li><a href="#portfolio" class="nav__link">Portfolio</a></li>
         <li><a href="#serveis"   class="nav__link">Serveis</a></li>
+        <li><a href="#preus"     class="nav__link">Preus</a></li>
         <li><a href="#sobre"     class="nav__link">Sobre mi</a></li>
         <li><a href="#contacte"  class="nav__link nav__link--cta">Contacta</a></li>
       </ul>
@@ -410,6 +411,78 @@
           </article>
 
         </div>
+      </div>
+    </section>
+
+    <!-- PREUS -->
+    <section id="preus" class="preus section">
+      <div class="container">
+        <header class="section__header" data-animate>
+          <span class="section__label">Tarifes</span>
+          <h2 class="section__title">Transparència total</h2>
+          <p class="section__desc">Preus clars, sense sorpreses. Tots els paquets inclouen pilot certificat AESA i edició professional.</p>
+        </header>
+
+        <div class="preus__grid">
+
+          <div class="preu-card" data-animate>
+            <div class="preu-card__head">
+              <span class="preu-card__label">Bàsic</span>
+              <div class="preu-card__price"><span class="preu-card__amount">299</span><span class="preu-card__cur">€</span></div>
+              <p class="preu-card__sub">Idoni per a xarxes socials i petits projectes</p>
+            </div>
+            <ul class="preu-card__list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>2 hores de vol</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>1 localització</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Vídeo fins a 2 min editat</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>20 fotografies aèries</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Entrega en 5 dies</li>
+              <li class="disabled"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Color grading avançat</li>
+              <li class="disabled"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Múltiples localitzacions</li>
+            </ul>
+            <a href="#contacte" class="btn btn--ghost preu-card__cta">Sol·licitar</a>
+          </div>
+
+          <div class="preu-card preu-card--featured" data-animate>
+            <div class="preu-card__badge">Més popular</div>
+            <div class="preu-card__head">
+              <span class="preu-card__label">Professional</span>
+              <div class="preu-card__price"><span class="preu-card__amount">599</span><span class="preu-card__cur">€</span></div>
+              <p class="preu-card__sub">Per a empreses, turisme i esdeveniments</p>
+            </div>
+            <ul class="preu-card__list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Mig dia de vol (4h)</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Fins a 2 localitzacions</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Vídeo fins a 5 min editat</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>50 fotografies aèries</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Color grading professional</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Entrega en 7 dies</li>
+              <li class="disabled"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Dia complet</li>
+            </ul>
+            <a href="#contacte" class="btn btn--gold preu-card__cta">Sol·licitar</a>
+          </div>
+
+          <div class="preu-card" data-animate>
+            <div class="preu-card__head">
+              <span class="preu-card__label">Premium</span>
+              <div class="preu-card__price"><span class="preu-card__amount">999</span><span class="preu-card__cur">€+</span></div>
+              <p class="preu-card__sub">Per a produccions publicitàries i cinema</p>
+            </div>
+            <ul class="preu-card__list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dia complet de vol (8h)</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Localitzacions il·limitades</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Vídeo fins a 10 min editat</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>100+ fotografies aèries</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Color grading cinema 4K/6K</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Entrega prioritària (5 dies)</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Suport post-producció complet</li>
+            </ul>
+            <a href="#contacte" class="btn btn--ghost preu-card__cta">Sol·licitar</a>
+          </div>
+
+        </div>
+
+        <p class="preus__note" data-animate>* Preus orientatius per a projectes estàndard a Catalunya. Desplaçaments fora de la zona inclosos fins a 50 km. Demana pressupost personalitzat per a projectes especials.</p>
       </div>
     </section>
 
