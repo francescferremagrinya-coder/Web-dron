@@ -135,6 +135,50 @@ if ('IntersectionObserver' in window) {
   document.querySelectorAll('[data-animate]').forEach(el => animObs.observe(el));
 }
 
+// ─── PARALLAX ─────────────────────────────────────────────
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const heroEl      = document.querySelector('.hero');
+  const heroContent = document.querySelector('.hero__content');
+  const heroCoords  = document.querySelector('.hero__coords');
+  const heroScrollEl = document.querySelector('.hero__scroll');
+  const droneSec    = document.querySelector('.drone-showcase');
+  const droneBg     = document.querySelector('.drone-showcase__bg');
+
+  function raf(fn) { requestAnimationFrame(fn); }
+
+  let ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) { raf(updateParallax); ticking = true; }
+  }, { passive: true });
+
+  function updateParallax() {
+    ticking = false;
+    const y = window.scrollY;
+
+    // Hero content: flota cap amunt i es desvaneix
+    if (heroContent && heroEl) {
+      const h = heroEl.offsetHeight;
+      const p = Math.min(y / h, 1);
+      heroContent.style.transform = 'translateY(' + (y * 0.18) + 'px)';
+      heroContent.style.opacity   = String(Math.max(1 - p * 2.2, 0));
+    }
+    if (heroCoords)   heroCoords.style.transform  = 'translateY(' + (y * 0.28) + 'px)';
+    if (heroScrollEl) heroScrollEl.style.opacity  = String(Math.max(1 - y / 180, 0));
+
+    // Drone showcase: fons es mou a velocitat diferent
+    if (droneBg && droneSec) {
+      const r = droneSec.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < window.innerHeight) {
+        droneBg.style.transform = 'translateY(' + ((window.innerHeight - r.top) * 0.12) + 'px)';
+      }
+    }
+  }
+
+  updateParallax();
+}());
+
 // ─── BARRES D'HABILITATS ──────────────────────────────────
 const skillsEl = document.querySelector('.sobre__skills');
 if (skillsEl) {
