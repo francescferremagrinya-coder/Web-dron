@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Arxiu Familiar · Vídeos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,600;9..144,1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin>
+  <style>
+    :root {
+      --bg:       #0e0c09;
+      --bg2:      #161210;
+      --card:     #1d1810;
+      --card-h:   #261f15;
+      --gold:     #d4a640;
+      --gold-l:   #f0c96a;
+      --amber:    #c97c2e;
+      --white:    #f5ede0;
+      --grey:     #7a6b58;
+      --grey-l:   #a89070;
+      --border:   rgba(212,166,64,.1);
+      --border-h: rgba(212,166,64,.28);
+      --r:        12px;
+      --tr:       .2s ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 120px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: .7;
+    }
+    img { display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .wrap { max-width: 1360px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); }
+
+    /* ── HEADER ── */
+    .site-header {
+      text-align: center;
+      padding: clamp(44px, 8vw, 88px) 0 0;
+    }
+    .header-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(212,166,64,.1);
+      border: 1px solid rgba(212,166,64,.22);
+      border-radius: 999px;
+      padding: 5px 16px;
+      font-size: .68rem; font-weight: 600;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 22px;
+    }
+    .header-kicker-dot {
+      width: 6px; height: 6px;
+      background: var(--gold); border-radius: 50%;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(212,166,64,.4); }
+      50%      { box-shadow: 0 0 0 5px rgba(212,166,64,0); }
+    }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.6rem, 8vw, 5.5rem);
+      font-weight: 600; line-height: 1.05;
+      color: var(--white);
+    }
+    h1 em { font-style: italic; color: var(--gold); }
+    .header-sub {
+      margin: 16px auto 0;
+      color: var(--grey-l); font-size: clamp(.9rem, 1.6vw, 1.05rem);
+      max-width: 50ch; line-height: 1.65;
+    }
+    .header-rule {
+      width: 80px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 28px auto 0;
+    }
+    .header-stats {
+      display: flex; align-items: center; justify-content: center; gap: 32px;
+      margin-top: 28px; padding-top: 28px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 600; color: var(--gold); line-height: 1;
+    }
+    .stat-lbl {
+      font-size: .68rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--grey); margin-top: 4px;
+    }
+    .stat-sep { width: 1px; height: 40px; background: var(--border); }
+
+    /* ── BANNER ── */
+    .banner {
+      border-radius: 10px; padding: 10px 18px;
+      margin: 24px 0 0; font-size: .82rem; text-align: center;
+      border: 1px solid;
+    }
+    .banner.warn { background: rgba(180,120,20,.1); border-color: rgba(180,120,20,.3); color: #c8a84a; }
+    .banner.ok   { background: rgba(40,100,50,.1);  border-color: rgba(40,100,50,.3);  color: #6ab87a; }
+
+    /* ── STICKY NAV ── */
+    .sticky-nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(14,12,9,.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      margin-top: 32px;
+    }
+    .sticky-inner {
+      display: flex; align-items: center; gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Search */
+    .search-box { position: relative; flex: 1; min-width: 220px; max-width: 440px; }
+    .search-box svg {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%);
+      width: 18px; height: 18px; stroke: var(--grey); pointer-events: none;
+    }
+    #q {
+      width: 100%; background: rgba(255,255,255,.05);
+      border: 1px solid var(--border); border-radius: 9px;
+      padding: 10px 14px 10px 42px;
+      color: var(--white); font-family: 'Inter', sans-serif; font-size: .9rem;
+      outline: none; transition: border-color var(--tr), box-shadow var(--tr);
+    }
+    #q::placeholder { color: var(--grey); }
+    #q:focus { border-color: rgba(212,166,64,.45); box-shadow: 0 0 0 3px rgba(212,166,64,.08); }
+
+    /* View toggle */
+    .view-toggle { display: flex; gap: 4px; flex-shrink: 0; }
+    .view-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--grey-l); font-family: 'Inter', sans-serif;
+      font-size: .76rem; font-weight: 600; cursor: pointer;
+      transition: var(--tr);
+    }
+    .view-btn svg { width: 15px; height: 15px; }
+    .view-btn:hover { border-color: var(--border-h); color: var(--white); }
+    .view-btn.is-active { background: var(--gold); border-color: var(--gold); color: #000; }
+
+    /* Year pills (timeline mode) */
+    .year-pills {
+      display: flex; align-items: center; gap: 5px;
+      overflow-x: auto; scrollbar-width: none;
+      padding-bottom: 2px;
+      flex: 1 0 100%;
+      margin-top: 8px;
+    }
+    .year-pills::-webkit-scrollbar { display: none; }
+    .pill {
+      flex-shrink: 0;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--grey-l); font-family: 'Inter', sans-serif;
+      font-size: .72rem; font-weight: 600; cursor: pointer;
+      transition: var(--tr);
+    }
+    .pill:hover { border-color: var(--border-h); color: var(--white); }
+    .pill.is-active { background: var(--gold); border-color: var(--gold); color: #000; }
+    .pill-all { color: var(--gold); border-color: rgba(212,166,64,.3); }
+    .pill-all.is-active { color: #000; }
+
+    /* Count info */
+    .count-info { font-size: .8rem; color: var(--grey); margin-left: auto; white-space: nowrap; }
+    .count-info b { color: var(--gold); }
+
+    /* ── TIMELINE VIEW ── */
+    #view-timeline { padding: clamp(24px, 4vw, 48px) 0; }
+
+    .year-group { margin-bottom: clamp(36px, 6vw, 64px); scroll-margin-top: 130px; }
+    .year-heading {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 20px;
+    }
+    .year-num {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 600; line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(212,166,64,.35);
+      letter-spacing: -.03em;
+      user-select: none;
+    }
+    .year-bar { flex: 1; height: 1px; background: linear-gradient(to right, rgba(212,166,64,.2), transparent); }
+    .year-tag {
+      font-size: .65rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--grey);
+      background: rgba(212,166,64,.07);
+      border: 1px solid rgba(212,166,64,.15);
+      padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color var(--tr), transform var(--tr), box-shadow var(--tr);
+    }
+    .card:hover {
+      border-color: var(--border-h);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 44px rgba(0,0,0,.55);
+    }
+
+    /* Thumbnail */
+    .card-thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: #120f08;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .thumb-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: .82;
+      transition: transform .45s ease, opacity .3s;
+    }
+    .card:hover .thumb-img { transform: scale(1.06); opacity: 1; }
+    .thumb-grad {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,8,5,.75) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* Film strip lines on placeholder */
+    .thumb-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+      background: linear-gradient(135deg, #1a1510 0%, #221c12 100%);
+    }
+    .thumb-placeholder::before,
+    .thumb-placeholder::after {
+      content: '';
+      position: absolute; left: 0; right: 0; height: 14px;
+      background: repeating-linear-gradient(90deg,
+        #0e0b07 0px, #0e0b07 10px,
+        #1a1510 10px, #1a1510 20px);
+    }
+    .thumb-placeholder::before { top: 0; }
+    .thumb-placeholder::after  { bottom: 0; }
+    .thumb-placeholder svg { width: 30px; height: 30px; color: rgba(212,166,64,.25); }
+    .thumb-placeholder span {
+      font-size: .6rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--grey);
+    }
+
+    /* Play overlay */
+    .play-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity var(--tr);
+    }
+    .card:hover .play-overlay { opacity: 1; }
+    .play-circle {
+      width: 46px; height: 46px;
+      background: rgba(212,166,64,.92);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transform: scale(.85);
+      transition: transform var(--tr);
+    }
+    .card:hover .play-circle { transform: scale(1); }
+    .play-circle svg { width: 16px; height: 16px; fill: #000; margin-left: 3px; }
+
+    /* Clip badge */
+    .clip-badge {
+      position: absolute; bottom: 9px; left: 10px;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 6px;
+      padding: 2px 9px;
+      font-size: .62rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase;
+      color: rgba(245,237,224,.55);
+    }
+
+    /* Card body */
+    .card-body { padding: 13px 15px 15px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .card-desc {
+      font-size: .8rem; line-height: 1.6;
+      color: rgba(245,237,224,.65);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+    .card-desc mark {
+      background: rgba(212,166,64,.22);
+      color: var(--gold-l); border-radius: 2px; padding: 0 1px;
+    }
+
+    .btn-play {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--gold); color: #000;
+      font-family: 'Inter', sans-serif;
+      font-size: .73rem; font-weight: 600; letter-spacing: .02em;
+      padding: 8px 15px; border-radius: 7px;
+      transition: background var(--tr), transform var(--tr);
+      align-self: flex-start;
+    }
+    .btn-play:hover { background: var(--gold-l); transform: translateY(-1px); }
+    .btn-play svg { width: 13px; height: 13px; fill: #000; }
+
+    .btn-pending {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      color: var(--grey); font-family: 'Inter', sans-serif;
+      font-size: .73rem; font-weight: 600;
+      padding: 8px 15px; border-radius: 7px;
+      cursor: default; align-self: flex-start;
+    }
+    .btn-pending svg { width: 13px; height: 13px; fill: var(--grey); }
+
+    /* ── MAP VIEW ── */
+    #view-map {
+      display: none;
+      padding: clamp(20px, 3vw, 36px) 0;
+    }
+    #view-map.is-active { display: block; }
+    #view-timeline.is-hidden { display: none; }
+
+    .map-header { margin-bottom: 16px; }
+    .map-header p { font-size: .85rem; color: var(--grey-l); margin-top: 6px; }
+
+    #leaflet-map {
+      height: clamp(340px, 55vh, 560px);
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    /* Leaflet overrides */
+    .leaflet-container {
+      background: #1a1510 !important;
+      font-family: 'Inter', sans-serif !important;
+    }
+    .leaflet-popup-content-wrapper {
+      background: var(--card) !important;
+      border: 1px solid var(--border-h) !important;
+      border-radius: 10px !important;
+      box-shadow: 0 8px 30px rgba(0,0,0,.6) !important;
+      color: var(--white) !important;
+    }
+    .leaflet-popup-tip { background: var(--card) !important; }
+    .leaflet-popup-content { margin: 12px 16px !important; }
+    .map-popup-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem; font-weight: 600; color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .map-popup-clips { font-size: .76rem; color: var(--grey-l); line-height: 1.6; }
+    .map-clip-link {
+      display: inline-block;
+      background: rgba(212,166,64,.12);
+      border: 1px solid rgba(212,166,64,.2);
+      color: var(--gold); border-radius: 5px;
+      padding: 1px 7px; font-size: .68rem; font-weight: 600;
+      margin: 2px 2px 0 0; cursor: pointer;
+      transition: background var(--tr);
+    }
+    .map-clip-link:hover { background: rgba(212,166,64,.25); }
+
+    .map-clips-list { margin-top: 20px; }
+    .map-clips-list h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem; font-weight: 500;
+      color: var(--gold); margin-bottom: 14px;
+    }
+    .map-card-mini {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px;
+      margin-bottom: 8px;
+      transition: border-color var(--tr);
+    }
+    .map-card-mini:hover { border-color: var(--border-h); }
+    .map-card-mini .mcm-num {
+      font-family: 'Fraunces', serif; font-size: 1rem;
+      font-weight: 600; color: var(--gold); white-space: nowrap;
+    }
+    .map-card-mini .mcm-desc {
+      font-size: .78rem; color: var(--grey-l); line-height: 1.5;
+      display: -webkit-box; -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical; overflow: hidden; flex: 1;
+    }
+    .map-card-mini a {
+      flex-shrink: 0;
+      width: 32px; height: 32px;
+      background: var(--gold); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .map-card-mini a svg { width: 12px; height: 12px; fill: #000; }
+    .map-no-clips { font-size: .82rem; color: var(--grey); font-style: italic; }
+
+    /* ── EMPTY ── */
+    .empty {
+      text-align: center; padding: 72px 24px; color: var(--grey);
+    }
+    .empty-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem; color: var(--white); margin-bottom: 10px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: clamp(20px, 4vw, 40px) 0 clamp(28px, 5vw, 52px);
+      margin-top: clamp(16px, 3vw, 28px);
+      border-top: 1px solid var(--border);
+      font-size: .78rem; color: var(--grey);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .sticky-inner { gap: 8px; }
+      .count-info { display: none; }
+    }
+    @media (max-width: 420px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="site-header">
+    <div class="header-kicker">
+      <span class="header-kicker-dot"></span>
+      Arxiu familiar &middot; cintes digitalitzades
+    </div>
+    <h1>Els v&iacute;deos<br>de la <em>fam&iacute;lia</em></h1>
+    <p class="header-sub">
+      Des del primer enregistrament del 1990 fins als records m&eacute;s recents.
+      Explora les cintes per any o descobreix els llocs del m&oacute;n que hem visitat.
+    </p>
+    <div class="header-rule"></div>
+    <div class="header-stats">
+      <div class="stat-item">
+        <div class="stat-num" id="stat-total">77</div>
+        <div class="stat-lbl">Cintes</div>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat-item">
+        <div class="stat-num">19</div>
+        <div class="stat-lbl">Anys de mem&ograve;ria</div>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat-item">
+        <div class="stat-num">12+</div>
+        <div class="stat-lbl">Destinacions</div>
+      </div>
+    </div>
+    <div id="banner"></div>
+  </header>
+</div>
+
+<!-- Sticky nav -->
+<nav class="sticky-nav" id="sticky-nav">
+  <div class="wrap">
+    <div class="sticky-inner">
+      <!-- Search -->
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/>
+        </svg>
+        <input id="q" type="search" autocomplete="off" placeholder="Cerca: Nadal, Menorca, comuni&oacute;...">
+      </div>
+
+      <!-- View toggle -->
+      <div class="view-toggle">
+        <button class="view-btn is-active" id="btn-timeline" aria-label="Vista timeline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          Timeline
+        </button>
+        <button class="view-btn" id="btn-map" aria-label="Vista mapa">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          Mapa
+        </button>
+      </div>
+
+      <div class="count-info" id="count"></div>
+    </div>
+
+    <!-- Year pills (timeline mode only) -->
+    <div class="year-pills" id="year-pills"></div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- TIMELINE VIEW -->
+  <div id="view-timeline"></div>
+
+  <!-- MAP VIEW -->
+  <div id="view-map">
+    <div class="map-header">
+      <h2 style="font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;color:var(--gold)">
+        Destinacions
+      </h2>
+      <p>Fes clic a un punt del mapa per veure les cintes gravades en aquell lloc.</p>
+    </div>
+    <div id="leaflet-map"></div>
+    <div class="map-clips-list" id="map-clips-list"></div>
+  </div>
+
+  <footer>
+    Arxiu de v&iacute;deos familiars &middot; <span id="total-footer"></span>
+  </footer>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
+<script>
+'use strict';
+
+/* ── DATA ── */
+const LINKS = {
+  "100":"https://drive.google.com/file/d/1mG1XzFTe2Z0qRPnP9JbOMwj4QLkSQzoi/view",
+  "101":"https://drive.google.com/file/d/1M8x3PWJBzBkp7MkgE71a5GzdWfi9L3J6/view",
+  "102":"https://drive.google.com/file/d/1IdsUcR7cAOwfyudvt643KmGhEcRmImrA/view",
+  "103":"https://drive.google.com/file/d/16gzjTaJKnDKWu1rWSc41CWldcu0t5jgG/view",
+  "104":"https://drive.google.com/file/d/1Jn_LfxGxBEaRkzfeAkJo4DDESA-skRFn/view",
+  "105":"https://drive.google.com/file/d/1_vxZVffPY9ULMroyILEnJ0lYa_yAwyL5/view",
+  "106":"https://drive.google.com/file/d/1VGg_Nta_0WNqt5UY92j-FtTtkRyKDi0o/view",
+  "107":"https://drive.google.com/file/d/1Ex1-TAviVg8SUEqcoRlEhHJiD3R_zgDA/view",
+  "108":"https://drive.google.com/file/d/1GJgm_HWp5XzAQ6jm_qkEAOAXepmYuQ--/view",
+  "109":"https://drive.google.com/file/d/1NVOFzBOZdF34FkpIIMYLB-ips1bdpuNE/view",
+  "110":"https://drive.google.com/file/d/1G4Znye7d0sBo3Re-8qlpEMt7T5ZBNPRi/view",
+  "111":"https://drive.google.com/file/d/1PwYIowuXANE8DL8nJw_Nm65yEavT6_uy/view",
+  "112":"https://drive.google.com/file/d/1gROXpC6M8c1nZej2Jxki7e5mI-FmXoUD/view",
+  "113":"https://drive.google.com/file/d/1epKkMDf2CWYT5amdAAWISiEDiTGBSRwo/view",
+  "114":"https://drive.google.com/file/d/1cfwXIWgVAbU0elD0Z4o2yNNu2PEQFH-Q/view",
+  "115":"https://drive.google.com/file/d/1-a1bZxB5gro1wt6hrqGZB2try8X77QzR/view",
+  "116":"https://drive.google.com/file/d/1FBhGlrLzAhlLV0GSFE8zFBIYmxmkegdB/view",
+  "117":"https://drive.google.com/file/d/1E3A_9qivGVww0Us-2R2BhyuJrW_nZzJE/view",
+  "118":"https://drive.google.com/file/d/1NoIO5P5-R-ul2L1ckySrfB4PTydAdR43/view",
+  "119":"https://drive.google.com/file/d/1GxPk0zaM8gUFObV196z3MD_r0pooSbAQ/view",
+  "120":"https://drive.google.com/file/d/1kU7gL0c4DjVuJQ1qtO0_JpfTC-RuvJvO/view",
+  "121":"https://drive.google.com/file/d/1EtP1T0N9ct1mUNZRg2u8X62s6R5yffoc/view",
+  "122":"https://drive.google.com/file/d/1mFlM2H6HSMIcQjYu1STpIY14oh93Sdse/view",
+  "123":"https://drive.google.com/file/d/1Uo3BSWpk62Dq3Hxz9yTC0fBPlvfvOzGi/view",
+  "124":"https://drive.google.com/file/d/1OO5NNsdDxYbIDu95S3bJY431e6wnoRS2/view",
+  "125":"https://drive.google.com/file/d/1l2trtbthToFpMIBglmhKPBHja_O4Zj4l/view",
+  "126":"https://drive.google.com/file/d/1wHcf4abf1TAFjg2zEyoe2yaC2zFOXZNX/view",
+  "127":"https://drive.google.com/file/d/1eJ1bqgA1QVqcSnpCgosn0fs1om2sge8B/view",
+  "128":"https://drive.google.com/file/d/1JNZ2bmyCkTzFwPkoKD6dp6cRxL2FEtjc/view",
+  "129":"https://drive.google.com/file/d/1REc1s-_7KIy2SEnejXScpjS86UzHc9Jr/view",
+  "130":"https://drive.google.com/file/d/15oWyt4e0Q0A9LcHoolr5yD2hW7mfMtaE/view",
+  "131":"https://drive.google.com/file/d/1pXGHj6srOADgHPglgU4P0Q18omJALdpk/view",
+  "132":"https://drive.google.com/file/d/1PZNy-TH97MZzaZV_GUkvVSRjKwXqFxF3/view",
+  "133":"https://drive.google.com/file/d/1UHDVBOCyFsHVK3mEsnM_Ou5PaPeV1HXl/view",
+  "134":"https://drive.google.com/file/d/1Ah8ZPILdRJvrlNRlRwZjUQvCScfu2QIu/view",
+  "135":"https://drive.google.com/file/d/1QzkCKTj-b9dZtmPpxT9WVFI7_WzKFigH/view",
+  "136":"https://drive.google.com/file/d/1uZSiKZ5vEDpwGw5VFpCyGvrGgJfGbKNa/view",
+  "137":"https://drive.google.com/file/d/1qZRBwKykSqPqYL5ggQucYsTIhCzH10zZ/view",
+  "138":"https://drive.google.com/file/d/1INY2OxHOdhJ4qWsLt4ylECI9QxLOLGbK/view",
+  "139":"https://drive.google.com/file/d/1pTHE4sv8ANrUClteF9SNTbRkqKVG8Kd1/view",
+  "140":"https://drive.google.com/file/d/1p4sY-ENFMnoiuGd28pD_kav6NdIxQjar/view",
+  "141":"https://drive.google.com/file/d/1BRHOALh1V2Z3hOC10wTN3F6h8ZOeqeM-/view",
+  "142":"https://drive.google.com/file/d/1B3BBPFIZxeSQeSuniJeAmNcvQgaxjMN5/view",
+  "143":"https://drive.google.com/file/d/19q3soJZ2s2nToUt8_a4IrVYF9l39PVQj/view",
+  "144":"https://drive.google.com/file/d/1DlGw6A8qqvz8lA7UUAUF8MxukhjqnMAE/view",
+  "145":"https://drive.google.com/file/d/1t0UErQ8AYhRhbo0vlUvwMa0W7varPVTO/view",
+  "146":"https://drive.google.com/file/d/1DHkOd_3EjOP6scwBQCA6if06F1stpHc6/view",
+  "147":"https://drive.google.com/file/d/188c5Oxub0CUAlQ4Kp1HP-LwcKqHHg-qi/view",
+  "148":"https://drive.google.com/file/d/1DGtWio-AmFHOn4YKxTMuIOl-CQeI4ahn/view",
+  "149":"https://drive.google.com/file/d/1mnR6ChvFKRLXyY3mFXp4FsMH2t89HJ5k/view",
+  "150":"https://drive.google.com/file/d/1JKN3SrzTHLxLTcQD7lKz9XmFD7ZFYhhF/view",
+  "151":"https://drive.google.com/file/d/1UJFSBmwlbSUXcHp5pHCPMOoR_NgL339O/view",
+  "152":"https://drive.google.com/file/d/1W4h6zNZOjF-4G1kVW_L12NIzuFmroW9g/view",
+  "153":"https://drive.google.com/file/d/1umseK1kdgaQiKN1dx1Klwt7NuULP8Ntk/view",
+  "154":"https://drive.google.com/file/d/10JBL8nuGk6CvgR9F5gh3_mLR_R_fzb_o/view",
+  "155":"https://drive.google.com/file/d/1Jo2V-PoGKADizbSWBl_vCk1USiD8w2oC/view",
+  "156":"https://drive.google.com/file/d/1X3yDTmuNLueUoE_shyPmSodwXGdR1c7q/view",
+  "157":"https://drive.google.com/file/d/1QmKy9K5NZkRETK43vrP9MzYKRwmEzPvP/view",
+  "158":"https://drive.google.com/file/d/1Jbvgt1PK4gRj-fTykMKwfNaw1vgLKqTT/view",
+  "159":"https://drive.google.com/file/d/1n84a8i8UuB1XF99dKDBW4cVri4h5KL-X/view",
+  "160":"https://drive.google.com/file/d/1WOMHInQgHsgzeh6Hrnh7x7VNl51FKAG_/view",
+  "161":"https://drive.google.com/file/d/1v9IrSYz_0PxZVdeFEWS2sSdVfYdhP-ZG/view",
+  "162":"https://drive.google.com/file/d/1alq5KcSyofGYjBWn7W5UxXm9QeGZJl2x/view",
+  "163":"https://drive.google.com/file/d/18B8A_Rn3UhKII7Fc2mxeTSDK5aWq6rNH/view",
+  "164":"https://drive.google.com/file/d/1z1NOp060sgOwK3X2dXxzayrSJpo_fDtp/view",
+  "165":"https://drive.google.com/file/d/1gDEPsc61a9EsMgn_DjZj6weTDmj-w05j/view",
+  "166":"https://drive.google.com/file/d/1CYaw1Y1zIsCgWr1cvCHJgQ82tN6wFp9Z/view",
+  "167":"https://drive.google.com/file/d/1tchS8TgQ7VguJRBQsqMvEih6bvxLHnmp/view",
+  "168":"https://drive.google.com/file/d/1xAUor17h-Mi9doKL7PaLUTMTKevBViOE/view",
+  "169":"https://drive.google.com/file/d/1UrR0btWHdZevtb0NgBVVDLSEsTz8rIQT/view",
+  "170":"https://drive.google.com/file/d/1_PvFN5OV7f5KXBvf4CxoCVJ1PeF7wSP-/view",
+  "171":"https://drive.google.com/file/d/1zENqksWr3cyhzENSkuG89HX6dMhS1i9O/view",
+  "172":"https://drive.google.com/file/d/1J005YjuD7REWjgPRlXYDFdeLpuiHD71K/view",
+  "173":"https://drive.google.com/file/d/1GuJl4nj_618jkOvwTVtqpHwU_RXgWTBS/view",
+  "174":"https://drive.google.com/file/d/1ak8taDu6P0dqLCqQABWaQ3O5ye4UUsNu/view",
+  "175":"https://drive.google.com/file/d/1ITK2LmNt2jwuAm5FBeYOYtFkVXRs4iW4/view",
+  "176":"https://drive.google.com/file/d/1IFoqqCLcJf2qFqs85mAL_qZWt2jN46zu/view"
+};
+
+const YEARS = {
+  100:1991,101:1991,102:1993,103:1991,104:1990,105:2000,106:1992,107:1990,
+  108:1992,109:2003,110:1996,111:1992,112:1995,113:1995,114:1995,115:1992,
+  116:2001,117:1991,118:2005,119:1994,120:1994,121:1990,122:2003,123:2001,
+  124:2003,125:2005,126:1992,127:1992,128:1992,129:1992,130:1992,131:1992,
+  132:1992,133:1992,134:1992,135:1992,136:1990,137:1991,138:1998,139:1999,
+  140:2004,141:1994,142:1993,143:1997,144:1994,145:2005,146:1991,147:2000,
+  148:1995,149:2002,150:1995,151:1993,152:1993,153:1991,154:1991,155:1992,
+  156:1994,157:1990,158:1991,159:1991,160:1991,161:1991,162:1991,163:1991,
+  164:1992,165:1992,166:1993,167:1993,168:1993,169:1997,170:1993,171:1994,
+  172:1999,173:1998,174:2005,175:1997,176:1991
+};
+
+const DATA = [
+  {clip:100,desc:"Sopar Biosques i Carnaval 91 (9/2/91). Sopar a ca l'Albert Biosca. Divendres Sant 29/3/91 (Processó)"},
+  {clip:101,desc:"Bateig de l'Albert al restaurant (31/3/91). Naixement de l'Elena (6/6/93). Varicel·la i braç trencat de l'Albert (Octubre 93)"},
+  {clip:102,desc:"Celebració avançada nens (6/3/93). Zoo Barcelona (9/4/93). Naixement Xavier Magriñà (11/4/93). Aniversari Francesc (10/5/93). Anada a Viella tots 4 (27-28-29/8/93)"},
+  {clip:103,desc:"Naixement Albert (11-12/3/91). A casa dia (16/3/91) Anna Rosato. A casa dia (29/3/91) banyant-se. A casa dia (22/9/91) al parc. A casa en diversos dies"},
+  {clip:104,desc:"Imatges de prova (8/12/90). Tarragona: Àngel i Rosa, cassola d'arròs (8/12/90). Dia de Nadal 3r pis. Cagar el Tió a casa nostra. Cagar el Tió a Ca Pons. Nadal 90."},
+  {clip:105,desc:"(28/5/00) Comunió de l'Albert"},
+  {clip:106,desc:"Aniversari 65 anys Josep Maria Montcusí (Biosca) (13/6/92). Anada a Viella: (3-4-5-6/9/92)"},
+  {clip:107,desc:"Primera cinta filmada amb la càmera Panasonic (Octubre 90)"},
+  {clip:108,desc:"Cabo Kennedy/Florida/Viatge a El Salvador: Les últimes preses del viatge (Març 92). Viatge a Paris-Eurodisney (9-13/10/92). Arribada a Paris-Austellitz/Paris-Lyon i les vistes diverses del parc Euro-Disney. Vistes de la ciutat de Paris: Torre Eiffel i Notre-Damme entre d'altres."},
+  {clip:109,desc:"Festa de Cap d'any 2003/2004 i Reis. Festa de l'aniversari del Xavier Ferré Ferré. Festa dels 50 anys del Josep Maria Cinto. Festa de la trobada d'armats a El Pla de Santa Maria"},
+  {clip:110,desc:"Vacances de l'estiu 96 a Olot. Festes Nadal 96-97. Cap d'any a Rupit."},
+  {clip:111,desc:"Carnaval nens escoles d'el Pla (23/2/92). Carnaval a casa dels pares de la Berta. Carnaval del Pla 92. Braç enguixat Albert abril 92. Mona (20/4/92)"},
+  {clip:112,desc:"Vacances d'estiu a EURODISNEY/París. (Setmana del 27/6/95 al 7/7/95). Vistes del viatge d'anada del 1r i 2n dia a Eurodisney i al Davy Crocket Ranch. (1a CINTA)"},
+  {clip:113,desc:"Vacances d'estiu a EURODISNEY/París. (Setmana del 27/6/95 al 7/7/95) (2a CINTA)"},
+  {clip:114,desc:"Vacances d'estiu a EURODISNEY/París. (Setmana del 27/6/95 al 7/7/95) (3a CINTA). Barri del Carme 1995 - 10è aniversari juliol. Fira 1995. Nadal 1995-1996/Cap d'any a Rupit."},
+  {clip:115,desc:"Anada a Viella: 3,4,5,6 setembre 1992. Casament de Maria dels Àngels i Rafel (12 setembre 1992, Poblet). Filmacions del pavelló (26/9/92)"},
+  {clip:116,desc:"36è aniversari Gemma 11/8/01. Maquillatge de la Gemma, Elena (Setembre 01). Nadal 2001. Carnaval 2002 (nens al carrer). Sopar de cal Faló (Reis 4/01/03). Aniversari Joan Ramon 43 anys (31/01/03)"},
+  {clip:117,desc:"Montserrat a peu. (1,2,3/11/91)"},
+  {clip:118,desc:"Fragments del dia de Nadal a casa nostra (23/12/05). Comunió de l'Ignasi 25/05/06. 50è aniversari de la Maria Amàlia (13/06/06). Festes de Nadal, Cap d'any i Reis (2006/2007). 70 anys de la Consol (4/2/07). 80 anys de la padrina Pepita Barrina (20/01/08)"},
+  {clip:119,desc:"Setmana Santa 1994: Anada a Roses. Francesc amb el peu envenat. Aniversari del Francesc. Aniversari de l'Eva Rosato (23/5/94). Aniversari de l'Elena (3/6/94)."},
+  {clip:120,desc:"Anada a Andorra 3-4 setembre (per lliure) amb la colla de sardanes. Anada a Caldea el dia 3/9/94. Dinar del \"homes\" a la Vallesca (11/9/94). Nadal 94."},
+  {clip:121,desc:"Filmacions diverses octubre/novembre 1990. Desfilada de models, cal Biosca, casa nostra 3r pis, dinar casa Consol (avi Artur), dinar a casa nostra 3r pis/Valentí, dinar casa nova oncle Joan."},
+  {clip:122,desc:"Funció de l'Albert \"La Fàbrica\" (6/6/03). Aniversari de l'Elena 10 anys (6/6/03). Confirmació del Francesc: Església i festa (27/9/03). Festes de Nadal del 2003."},
+  {clip:123,desc:"Vacances a Menorca 29/6/01 - 11/07/01"},
+  {clip:124,desc:"50 anys de casats dels padrins Rafel i Pepita (Abril 2003)"},
+  {clip:125,desc:"Aniversari de l'Eduard a la botiga del Josep Maria (9/10/05). Viatge a Tenerife (23/10/05-30/10/05)"},
+  {clip:126,desc:"1 Viatge a Miami / El Salvador. Dies 2, 3, 4 de març 1992. Vistes dels aeroports de BCN, MAD, MIA. Vistes avió interior i exterior. Vistes de l'hotel i derivats de Miami International. Arribada a El Salvador."},
+  {clip:127,desc:"2 Viatge a El Salvador. Dies 4 i 5 de març 1992. Vistes nocturnes del sopar i la vivenda dels pares de la Deby. Festa nocturna a casa dels Artiñano."},
+  {clip:128,desc:"3 Viatge a El Salvador. Dies 7, 8 i 9 de març del 1992. Part del casament, preses vàries de diferents escenes. Finca de Sant Diego i finca de Sihuapilapa."},
+  {clip:129,desc:"4 Viatge a El Salvador. Dia 8 març de 1992. Sihuapilapa: Vivenda de platja dels Jokish-Soberano. Dia 10 març 1992. Cerro Verde volcà Izalco."},
+  {clip:130,desc:"5 Viatge a El Salvador. Dia 10 de març del 1992: Cerro Verde i el Volcà Izalco. Llac de Coatepeque. Dia 11 de març: Berenar a la vivenda de Carmen Elena. Dia 12 de març: Tazumal a Chalchuapa."},
+  {clip:131,desc:"6 Viatge a El Salvador. Dia 12 de març del 1992: Vistes de Chalchuapa i el Tazumal. Dia 14 de març: Anada a la barra de Santiago (Finca dels Artiñano-Maestre). Jet Sky, banyada a la bacana."},
+  {clip:132,desc:"7 Viatge a El Salvador. Dia 14 i 15 març del 1992. Anada a la finca, activitats i vistes de la Barra de Santiago. Canals interns de la Barra de Santiago. Tornada cap a San Salvador."},
+  {clip:133,desc:"8 Viatge a El Salvador. Dia 16 març 1992: Arribada a Miami i vistes de l'apartament dels oncles. Vistes nocturnes de diferents barris de Miami. Dia 17: Sea Aquarium de Miami."},
+  {clip:134,desc:"9 Viatge a El Salvador. Dia 17: Miami, PARROT JUNGLE. Dia 18: DISNEYWORLD EPCOT. Dia 19: DISNEYWORLD estudis de MGM."},
+  {clip:135,desc:"10 Viatge a El Salvador. Dia 19: DISNEYWORLD estudis MGM. Dia 20: DISNEYWORLD MAGIC KINGDOM. Dia 21 de març de 1992: Cap Kennedy."},
+  {clip:136,desc:"Filmacions desembre 90 - gener 91 (Nadal 1990). Arribada del patge dels reis 1/01/91. Filmacions pessebre casa oncles. Lliurament dels regals i arribada dels reis al 3r pis."},
+  {clip:137,desc:"Sortida a la muntanya amb el NISSAN de l'Anton 29/06/91 Rojals. Sortida a la muntanya 13/07/91 Selmella/Montagut. Nevades del dia 22 i 23 de gener del 1992. Les primeres passes de l'Albert 2/2/92."},
+  {clip:138,desc:"Nadal, Cap d'any i Reis del 1998/99. Carnavals, recitals de música Albert. Dinar dels amics F.Professional de Valls. Aniversari de l'Elena, inicis vacances estiu del 1999."},
+  {clip:139,desc:"Nadal 99. Cap d'any i Reis 2000. Disfressa de princesa de l'Elena. St. Jordi del 2000, dinar a cal Carles. Sortida a Núria 28/29 abril 2000. Regals del Pare Noel del 25 de desembre del 2000."},
+  {clip:140,desc:"Aniversari de la Teresa Albareda - 40 anys a Ca Fèlix. Festes de Nadal 2004/2005. 14 anys de l'Albert. Ball de fi de curs de l'Elena a l'abadia."},
+  {clip:141,desc:"Menorca 1994 (2) (Juny-juliol). Filmacions de la nena i la resta de família - Estiu del 94. Andorra - Encamp (3-4 setembre '94)"},
+  {clip:142,desc:"Bateig de l'Elena: Divendres 30 juliol 93 - Sopar de Cal Biosca. Dissabte 31 de juliol 93 - Bateig de l'Elena a l'església i festa al restaurant. Diumenge 1 agost 93 dinar al Carreró de Cal Faló."},
+  {clip:143,desc:"Comunió del Francesc (2). Sortida als Sants Metges (14 setembre 97). Bateig de l'Ignasi (12 octubre 97). Nadal 97-98. Àpats i sortida a Rupit. Carnaval 98. Final de curs 97/98."},
+  {clip:144,desc:"Cavalcada de Reis i repartiment (5 de gener 94). Carnaval i la rua del 94 (12 de febrer del 94). Calçotada a cal Biosca (6 de març 94). Calçotada a cal Faló (13 de març 94)"},
+  {clip:145,desc:"Casament de l'Eduard (2/7/05). Recollir (l'Elena) el premi de l'Esclat (7/7/05). Aniversari de la Gemma - 40 anys (11/08/05). Festa de celebració dels 40 anys de la Gemma al Trastevere (21/08/05)"},
+  {clip:146,desc:"Fira 1991 novembre. Sopar Cap d'Any/Casa tiets/Biosques 31-12-91. Reis 1992."},
+  {clip:147,desc:"Dia de Nadal 2000 a casa nostra. Cap d'any Sant Joan de l'Erm, nosaltres, Àngels i Albert Biosca. Reis 2001. Jubilació de l'Alberta Biosa (11 de març 2001). Vacances a Menorca (21/06/01)."},
+  {clip:148,desc:"Nadal 95-96. Cap d'any a Rupit (2). Disfresses de Carnaval '96: Els nens. Aniversari 5 anys Albert. Casament del Joan Boronat (21 abril '96). Excursió al Tibidabo (27 de maig '96)."},
+  {clip:149,desc:"Comunió Elena (2002). Aniversari de la Gemma - 37 anys (11/08/02). Muntatge de l'arbre i pessebre de Nadal (6/8-12/02). Sopar de la nit de Nadal a Cal Carles 24/12/02. Dinar de Nadal a casa nostra (25/12/02)."},
+  {clip:150,desc:"Casament Carles i Anna, 23 abril del 1995. Comunió Jordi Garcia, 28 de maig de 1995."},
+  {clip:151,desc:"Dia 25 de desembre 1993. \"Cagar el tió\" al 3r pis amb tots nosaltres, Boronat i Falons. Pastorets: nen Jesús (Elena). Dia 31/12/93: Sopar de Cap d'Any. Dia 1/1/94: Patge Reial i \"Cagar el Tió\" a Ca Pons."},
+  {clip:152,desc:"Dia 28 de novembre de 1993. Celebració dels 65 anys del pare a cal \"Sapero\" de Santes Creus. Dia 25 de desembre de 1993. Celebració d'una part del dinar de Nadal al 3r pis."},
+  {clip:153,desc:"Dia 23 juny 1991. Revetlla de Sant Joan a Ca Pons. Dia 13 de juliol 1991: Sopar organització barri a casa tiets. Dia 26 juny del 1993: Sopar de l'organització del barri a Casa dels oncles."},
+  {clip:154,desc:"Diada bicicleta. Preses del nen. Preses de la comunió de l'Albert Masgoret. Dia de Corpus Christi. Dia 23 juny de 1991: Ca Pons"},
+  {clip:155,desc:"31 de maig de 1992. Comunió del Xavier. Dia 24 i 25 de desembre de 1992: Nadal - (algunes filmacions)"},
+  {clip:156,desc:"Cap d'any 94-95. Nit de reis 1995. Reis any 1995. Calçotada Cal Biosca 5 febrer 1995. Calçotada Cal Biosca 11 març 1995, aniversari Albert. Dia de Rams a Ca Pons. 13 maig 95 Fira Solsona."},
+  {clip:157,desc:"Passi de modes: Anton Montserrat a la pista de la cooperativa. Novembre 1990."},
+  {clip:158,desc:"Dia 31 de març del 91. Dia de la mona. Paella d'arròs a cal Biosca."},
+  {clip:159,desc:"Bateig de l'Albert (1a CINTA) Església/A casa (Biosques) 31/03/1991"},
+  {clip:160,desc:"Bateig de Jordi Dalmau i Falo, 28 de juliol de 1991. Esmorzar a Rojals nosaltres, 27 de juliol de 1991. Dia 2 d'octubre de 1994, filmacions de l'Elena."},
+  {clip:161,desc:"Festes desembre/nadal 1991. Família Capdevila-Cucurull (Úrsula) 8/12/91. Nit bona, arbre de nadal 24/12/91. Dia de Nadal, dinar i tió 25/12/91. Cap d'any Biosques 31/12/91."},
+  {clip:162,desc:"Dia 3 agost de 1991. Sortida amb Anton i Maite a la Mussara i Siurana. Menorca 24/31 d'agost del 1991 (1)"},
+  {clip:163,desc:"Menorca 24-31 d'agost de 1991 (2a CINTA). Menorca 30 de juny de 1994 (1). Ciutadella, vista general dels apartaments."},
+  {clip:164,desc:"Viatge a Paris EURODISNEY (OCTUBRE 92) (2)"},
+  {clip:165,desc:"Nadal any 1992. \"Cagar el tió\" i dinar del dia de Nadal al 3r PIS. \"Cagar el Tió\" a Cal Pons. Revetlla de final d'any a casa nostra."},
+  {clip:166,desc:"Reis 1993/El Pla i Valls (Pis Josep Ramon-Berta). Dinar dels 65 anys de la padrina (El mas del Plata)"},
+  {clip:167,desc:"Dia 25 d'abril de 1993. Festa dels 40 anys del casament dels padrins. Dia 17 de novembre de 1993: Fotografia familiar dels fills per a la celebració dels 65 anys del padrí. Dia 28 de novembre de 1993: Celebració dels 65 anys del pare a cal Saperó de Santes Creus."},
+  {clip:168,desc:"Filmacions diverses de treballs. 9 de juny de 1993: Instal·lació de la bomba del pou de l'hort del Ramon \"Panseta\". Dia 5 de març de 1994: Treballs efectuats a la planta de formigons del Garganté."},
+  {clip:169,desc:"Cap d'any a Rupit 1997. Reis 1997. Carnaval 1997. Vallesca."},
+  {clip:170,desc:"Viella/Baqueira/Beret 29 agost 1993. Olot dies 18 i 19 setembre 1993."},
+  {clip:171,desc:"Filmacions Fira 1994. Filmacions Baixas-Lehmberg setembre 1994"},
+  {clip:172,desc:"Eivissa - Estiu 1999 (Agost/Setembre) (2a CINTA)"},
+  {clip:173,desc:"Paris 1998 (Estiu). Sortida del 13 setembre de 1998 als boscos de Poblet."},
+  {clip:174,desc:"Viatge a Tenerife 23-30 octubre 2005. Fragments del sopar de Nadal a cal Carles i Anna (24/12/05). Fragments d'obrir els regals de l'arbre de Nadal a casa el dia 25/12/05."},
+  {clip:175,desc:"1a Comunió Francesc 25 de maig de 1997"},
+  {clip:176,desc:"Difusió publicitaria INSTAL·LACIONS JOAN RAMON FERRÉ"}
+];
+
+/* Map locations */
+const MAP_LOCS = [
+  {name:"El Pla de Santa Maria",lat:41.348,lng:1.288,clips:[100,101,103,104,107,109,111,116,121,136,137,144,146,153,154,157,158,159,161,165,166,176]},
+  {name:"París / EuroDisney",lat:48.856,lng:2.352,clips:[108,112,113,114,164,173]},
+  {name:"El Salvador",lat:13.794,lng:-88.896,clips:[126,127,128,129,130,131,132]},
+  {name:"Miami / Florida",lat:25.761,lng:-80.191,clips:[133,134,135]},
+  {name:"Menorca",lat:39.948,lng:4.118,clips:[123,141,147,162,163]},
+  {name:"Andorra",lat:42.506,lng:1.521,clips:[120,141]},
+  {name:"Tenerife",lat:28.291,lng:-16.629,clips:[125,174]},
+  {name:"Eivissa",lat:38.908,lng:1.434,clips:[172]},
+  {name:"Viella / Baqueira",lat:42.719,lng:0.793,clips:[102,106,115,170]},
+  {name:"Montserrat",lat:41.594,lng:1.836,clips:[117]},
+  {name:"Barcelona",lat:41.383,lng:2.183,clips:[102,148]},
+  {name:"Olot",lat:42.181,lng:2.489,clips:[110,170]},
+  {name:"Rupit",lat:41.984,lng:2.389,clips:[110,114,143,148,169]},
+  {name:"Roses",lat:42.267,lng:3.177,clips:[119]},
+  {name:"Santes Creus",lat:41.411,lng:1.387,clips:[122,152,167]},
+  {name:"Poblet",lat:41.394,lng:1.072,clips:[115,173]},
+  {name:"Solsona",lat:41.999,lng:1.519,clips:[156]},
+  {name:"Vall de Núria",lat:42.396,lng:2.148,clips:[139]},
+  {name:"Siurana",lat:41.267,lng:0.939,clips:[162]},
+  {name:"Valls",lat:41.286,lng:1.251,clips:[109,138,148,166]},
+  {name:"Tarragona",lat:41.119,lng:1.245,clips:[104]},
+  {name:"Tibidabo",lat:41.421,lng:2.118,clips:[148]}
+];
+
+/* ── SETUP ── */
+DATA.forEach(it => {
+  it.year = YEARS[it.clip] || 0;
+  const url = (LINKS[it.clip] || '').trim();
+  it.url = url;
+  if (url) {
+    const m = url.match(/\/d\/([a-zA-Z0-9_\-]+)\//);
+    it.thumbId = m ? m[1] : null;
+  } else {
+    it.thumbId = null;
+  }
+});
+
+document.getElementById('total-footer').textContent = DATA.length + ' cintes';
+
+/* ── YEAR PILLS ── */
+const allYears = [...new Set(DATA.map(d => d.year))].filter(Boolean).sort();
+let activeYear = null;
+
+const pillsEl = document.getElementById('year-pills');
+const allPill = document.createElement('button');
+allPill.className = 'pill pill-all is-active';
+allPill.textContent = 'Tots els anys';
+allPill.addEventListener('click', () => setYear(null));
+pillsEl.appendChild(allPill);
+
+allYears.forEach(y => {
+  const b = document.createElement('button');
+  b.className = 'pill';
+  b.textContent = y;
+  b.dataset.year = y;
+  b.addEventListener('click', () => setYear(y));
+  pillsEl.appendChild(b);
+});
+
+function setYear(y) {
+  activeYear = y;
+  pillsEl.querySelectorAll('.pill').forEach(p => {
+    const py = p.dataset.year ? +p.dataset.year : null;
+    p.classList.toggle('is-active', py === y);
+  });
+  renderTimeline(currentQuery);
+  if (y !== null) {
+    const el = document.getElementById('yr-' + y);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+/* ── SEARCH ── */
+let currentQuery = '';
+const qEl = document.getElementById('q');
+qEl.addEventListener('input', () => {
+  currentQuery = qEl.value.trim();
+  renderTimeline(currentQuery);
+});
+
+/* ── HELPERS ── */
+function esc(s) {
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function norm(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+
+function highlight(text, terms) {
+  let out = esc(text);
+  terms.forEach(t => {
+    if (!t) return;
+    const re = new RegExp('(' + t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi');
+    out = out.replace(re, '<mark>$1</mark>');
+  });
+  return out;
+}
+
+function thumbUrl(it) {
+  if (!it.thumbId) return null;
+  return `https://drive.google.com/thumbnail?id=${it.thumbId}&sz=w480`;
+}
+
+function cardHtml(it, terms) {
+  const thumb = thumbUrl(it);
+  const thumbHtml = thumb
+    ? `<img class="thumb-img" src="${thumb}" alt="Miniatura cinta ${it.clip}" loading="lazy"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='none';this.closest('.card-thumb').querySelector('.thumb-placeholder').style.display='flex'">`
+    : '';
+  const playBtn = it.url
+    ? `<a class="btn-play" href="${esc(it.url)}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Veure el vídeo</a>`
+    : `<span class="btn-pending"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Pendent</span>`;
+
+  return `<article class="card">
+    <div class="card-thumb">
+      ${thumbHtml}
+      <div class="thumb-grad"></div>
+      <div class="thumb-placeholder" style="${thumb?'display:none':''}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="20" height="20" rx="2.5"/><path d="M10 8l6 4-6 4V8z"/>
+        </svg>
+        <span>Cinta ${it.clip}</span>
+      </div>
+      ${it.url ? `<div class="play-overlay"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>` : ''}
+      <span class="clip-badge">Cinta ${it.clip}</span>
+    </div>
+    <div class="card-body">
+      <p class="card-desc">${highlight(it.desc, terms)}</p>
+      ${playBtn}
+    </div>
+  </article>`;
+}
+
+/* ── RENDER TIMELINE ── */
+function renderTimeline(raw) {
+  const terms = raw.split(/\s+/).filter(Boolean);
+  const nterms = terms.map(norm);
+  let items = DATA;
+
+  if (nterms.length) {
+    items = items.filter(it => {
+      const hay = norm(it.desc + ' ' + it.clip);
+      return nterms.every(t => hay.includes(t));
+    });
+  }
+  if (activeYear !== null) {
+    items = items.filter(it => it.year === activeYear);
+  }
+
+  const countEl = document.getElementById('count');
+  const total = items.length;
+  countEl.innerHTML = raw
+    ? `<b>${total}</b> ${total === 1 ? 'cinta trobada' : 'cintes trobades'}`
+    : `<b>${total}</b> cintes`;
+
+  const container = document.getElementById('view-timeline');
+
+  if (!items.length) {
+    container.innerHTML = `<div class="empty">
+      <div class="empty-title">Cap resultat</div>
+      Prova amb una altra paraula o canvia el filtre d'any.
+    </div>`;
+    return;
+  }
+
+  const byYear = {};
+  items.forEach(it => {
+    const y = it.year || 'Sense data';
+    if (!byYear[y]) byYear[y] = [];
+    byYear[y].push(it);
+  });
+
+  const sortedYears = Object.keys(byYear).sort((a, b) => +a - +b);
+
+  container.innerHTML = sortedYears.map(y => {
+    const group = byYear[y];
+    return `<section class="year-group" id="yr-${y}">
+      <div class="year-heading">
+        <div class="year-num">${y}</div>
+        <div class="year-bar"></div>
+        <div class="year-tag">${group.length} ${group.length === 1 ? 'cinta' : 'cintes'}</div>
+      </div>
+      <div class="cards-grid">
+        ${group.map(it => cardHtml(it, terms)).join('')}
+      </div>
+    </section>`;
+  }).join('');
+}
+
+/* ── STATUS BANNER ── */
+const linked = DATA.filter(it => it.url).length;
+const banner = document.getElementById('banner');
+if (linked < DATA.length) {
+  banner.className = 'banner warn';
+  banner.innerHTML = `Hi ha <b>${linked}</b> de <b>${DATA.length}</b> vídeos enllaçats.`;
+} else {
+  banner.className = 'banner ok';
+  banner.innerHTML = 'Tots els vídeos estan enllaçats. A gaudir dels records!';
+}
+
+/* ── VIEW TOGGLE ── */
+const btnTimeline = document.getElementById('btn-timeline');
+const btnMap      = document.getElementById('btn-map');
+const viewTimeline = document.getElementById('view-timeline');
+const viewMap      = document.getElementById('view-map');
+const pillsWrap    = document.getElementById('year-pills');
+
+let mapInit = false;
+
+btnTimeline.addEventListener('click', () => {
+  btnTimeline.classList.add('is-active');
+  btnMap.classList.remove('is-active');
+  viewTimeline.classList.remove('is-hidden');
+  viewMap.classList.remove('is-active');
+  pillsWrap.style.display = '';
+});
+
+btnMap.addEventListener('click', () => {
+  btnMap.classList.add('is-active');
+  btnTimeline.classList.remove('is-active');
+  viewTimeline.classList.add('is-hidden');
+  viewMap.classList.add('is-active');
+  pillsWrap.style.display = 'none';
+  if (!mapInit) initMap();
+});
+
+/* ── LEAFLET MAP ── */
+function initMap() {
+  mapInit = true;
+
+  const map = L.map('leaflet-map', {
+    center: [41.3, 1.3],
+    zoom: 5,
+    zoomControl: true,
+    preferCanvas: true
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  const goldIcon = L.divIcon({
+    className: '',
+    html: `<div style="
+      width:16px;height:16px;
+      background:#d4a640;
+      border:2px solid rgba(240,201,106,.7);
+      border-radius:50%;
+      box-shadow:0 0 10px rgba(212,166,64,.6);
+    "></div>`,
+    iconSize: [16, 16],
+    iconAnchor: [8, 8],
+    popupAnchor: [0, -10]
+  });
+
+  const homeLoc = MAP_LOCS[0];
+  const homeIcon = L.divIcon({
+    className: '',
+    html: `<div style="
+      width:20px;height:20px;
+      background:#d4a640;
+      border:2px solid #f0c96a;
+      border-radius:50%;
+      box-shadow:0 0 16px rgba(212,166,64,.8);
+    "></div>`,
+    iconSize: [20, 20],
+    iconAnchor: [10, 10],
+    popupAnchor: [0, -12]
+  });
+
+  MAP_LOCS.forEach((loc, idx) => {
+    const clipList = loc.clips.map(c =>
+      `<span class="map-clip-link" data-clip="${c}">Cinta ${c}</span>`
+    ).join('');
+
+    const popup = L.popup({ maxWidth: 280 }).setContent(`
+      <div class="map-popup-name">${esc(loc.name)}</div>
+      <div class="map-popup-clips">${clipList}</div>
+    `);
+
+    const marker = L.marker([loc.lat, loc.lng], {
+      icon: idx === 0 ? homeIcon : goldIcon,
+      title: loc.name
+    }).addTo(map).bindPopup(popup);
+
+    marker.on('popupopen', () => {
+      document.querySelectorAll('.map-clip-link').forEach(el => {
+        el.addEventListener('click', () => showMapClips([+el.dataset.clip], loc.name));
+      });
+    });
+  });
+
+  document.getElementById('map-clips-list').innerHTML = `
+    <p style="color:var(--grey);font-size:.85rem;margin-top:16px">
+      Fes clic a un punt del mapa per veure les cintes gravades en aquell lloc.
+    </p>`;
+}
+
+function showMapClips(clipNums, locName) {
+  const items = DATA.filter(it => clipNums.includes(it.clip));
+  const el = document.getElementById('map-clips-list');
+  el.innerHTML = `<h3>${esc(locName)}</h3>` + items.map(it => {
+    const thumb = thumbUrl(it);
+    return `<div class="map-card-mini">
+      ${thumb
+        ? `<img src="${thumb}" alt="" loading="lazy" style="width:56px;height:38px;object-fit:cover;border-radius:6px;opacity:.85;flex-shrink:0;"
+             onerror="this.style.display='none'">`
+        : `<div style="width:56px;height:38px;background:#221c12;border-radius:6px;flex-shrink:0;"></div>`}
+      <span class="mcm-num">${it.clip}</span>
+      <span class="mcm-desc">${esc(it.desc)}</span>
+      ${it.url ? `<a href="${esc(it.url)}" target="_blank" rel="noopener" title="Veure vídeo">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>` : ''}
+    </div>`;
+  }).join('');
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ── INIT ── */
+renderTimeline('');
+</script>
+</body>
+</html>
