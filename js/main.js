@@ -364,3 +364,89 @@ if (form) {
     }
   });
 }
+
+// ─── PARTÍCULES HERO ──────────────────────────────────
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let particles = [], w, h;
+
+  function resize() {
+    w = canvas.width  = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+  }
+
+  function mkP() {
+    return {
+      x:    Math.random() * w,
+      y:    Math.random() * h,
+      r:    Math.random() * 1.8 + 0.4,
+      a:    Math.random() * 0.65 + 0.15,
+      dx:   (Math.random() - 0.5) * 0.28,
+      dy:   -(Math.random() * 0.3 + 0.08),
+      gold: Math.random() > 0.42,
+      glow: Math.random() > 0.62
+    };
+  }
+
+  function init() {
+    resize();
+    particles = Array.from({ length: 70 }, mkP);
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+      ctx.save();
+      ctx.globalAlpha = p.a;
+      if (p.glow) {
+        ctx.shadowBlur  = 10;
+        ctx.shadowColor = p.gold ? '#e8a020' : 'rgba(240,240,248,0.8)';
+      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.gold ? '#e8a020' : 'rgba(240,240,248,0.85)';
+      ctx.fill();
+      ctx.restore();
+
+      p.x  += p.dx;
+      p.y  += p.dy;
+      p.dx += (Math.random() - 0.5) * 0.012;
+      p.dy += (Math.random() - 0.5) * 0.006;
+      p.dx  = Math.max(-0.38, Math.min(0.38, p.dx));
+      p.dy  = Math.max(-0.45, Math.min(-0.06, p.dy));
+
+      if (p.y < -10) { Object.assign(p, mkP()); p.y = h + 10; }
+      if (p.x < -10) p.x = w + 10;
+      if (p.x > w + 10) p.x = -10;
+    });
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', resize, { passive: true });
+  init();
+  frame();
+}());
+
+// ─── 3D TILT ──────────────────────────────────────────
+if (window.matchMedia('(hover: hover)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('[data-tilt]').forEach(el => {
+    el.style.willChange = 'transform';
+
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width  - 0.5;
+      const y = (e.clientY - rect.top)  / rect.height - 0.5;
+      el.style.transition = 'none';
+      el.style.transform  = `perspective(700px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg) translateY(-6px) scale(1.02)`;
+    });
+
+    el.addEventListener('mouseleave', () => {
+      el.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+      el.style.transform  = '';
+      setTimeout(() => { el.style.transition = ''; }, 650);
+    });
+  });
+}
