@@ -25,6 +25,7 @@ def load_instagram_folder(ig_root):
     # Cerca la carpeta de posts
     posts_dir = None
     for candidate in [
+        root / 'your_instagram_activity' / 'posts' / 'media',
         root / 'your_instagram_activity' / 'posts',
         root / 'your_instagram_activity' / 'media',
         root / 'content',
